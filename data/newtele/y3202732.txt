@@ -1,0 +1,9 @@
+login: y3202732
+password: 896772
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: test1
+cpassword: test1
+chat_id: 0
+name: 

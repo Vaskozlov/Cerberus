@@ -1,0 +1,9 @@
+login: y1381953
+password: 3862
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: vaskozlov
+cpassword: 152018
+chat_id: 482533202
+name: 

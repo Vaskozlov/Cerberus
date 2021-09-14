@@ -1,1 +1,2 @@
-# Cerberus
+# AutoCerm
+Cerm solver

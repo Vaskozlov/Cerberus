@@ -1,0 +1,235 @@
+from globals import *
+from loginIN import *
+from adminFunctionality import *
+from cerberPro import *
+from promocodesFun import *
+from registration import *
+
+class user:
+    
+    def __init__(self, message):
+        self.busy: bool = False
+        self.lock = th.Lock()
+        self.th = None
+        self.running = False
+        self.status = users_statuses.just_logined
+        self.logined = False
+        self.cerberous = None
+        self.chat_id = message.chat.id
+        self.login = None
+        self.password = None
+        self.exercise_amount = 0
+        self.exercise2do = None
+        self.message = None
+        self.tmp_login = None
+        self.tmp_password = None
+        self.config: db.ClientConfig = None
+        self.callback_message = None
+
+    def callback(self, a, b):
+        try:
+            bot.edit_message_text(chat_id=self.chat_id, message_id=self.callback_message.message_id, text=f"Упражнение выполняется... Прогресс: {a}, ошибок: {b}")
+        except BaseException:
+            pass
+
+    def check_password(self, data, size):
+        global valid
+
+        if (len(data) < size):
+            return False
+
+        for elem in data:
+            if elem not in valid:
+                return False
+        
+        return True
+
+    def standart_choice(self):
+        data = self.message.text.lower()
+
+        if data == "упражнение":
+            bot.send_message(self.chat_id, "Подождите загрузки активных упражнений, если среди активных упражнений нету необходимого, то просто напишите его номер боту.", reply_markup=empty_keyboard)
+            self.status = users_statuses.world_amount_status
+            proccess_exercise_loading(self)
+
+        elif data == "точность":
+            bot.send_message(self.chat_id, f"Введите новую точность в процентах %, текущая {int(self.config.accuracy * 100)}%", reply_markup=cancel_keyboard)
+            self.status = users_statuses.accuracy_status
+
+        elif data == "пополнить слова":
+            bot.send_message(self.chat_id, "Выберите вариант пополнения слов. При приглашении друга вы получите 200 слов, а ваш друг 100 слов.", reply_markup=add_choise)
+            self.status = users_statuses.promocode_status
+
+    def change_accuracy(self):
+        try:
+            data = float(self.message.text.strip(" %"))
+            
+            if data < 75 or data > 100:
+                raise BaseException
+
+            self.config.change_accuracy(data / 100.0)
+            self.status = users_statuses.main_menu
+        
+            bot.send_message(self.chat_id, "Вы успешно установили точность: " + str(int(data)) + "%", reply_markup=standart_keyboard)
+
+        except BaseException:
+            bot.send_message(self.chat_id, f"Введите число в диапозоне от 75 до 100. Если у вас возникла ошибка, то обратитесь к администратору {publicAdmins}.")
+
+    def cancel_action(self):
+
+        if self.config != None:
+            self.config.running = False
+    
+        self.lock.acquire()
+
+        try:
+
+            if self.status == users_statuses.correct_status:
+                self.login = ""
+                self.password = ""
+                self.tmp_login = ""
+                self.tmp_password = ""
+
+            if self.logined:
+
+                while self.cerberous != None:
+                    if self.status == users_statuses.main_menu:
+                        break
+                    else:
+                        time.sleep(0.2)
+
+                self.status = users_statuses.main_menu
+                bot.send_message(self.chat_id, "Хорошо", reply_markup=standart_keyboard)
+            else:
+                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help.", reply_markup=first_response_keyboard)
+                self.status = users_statuses.none
+        
+        except BaseException:
+            pass
+
+        finally:
+            self.lock.release()
+
+
+    def loop(self):
+        global bot, user_configs
+        self.message.text = self.message.text.strip(" \n")
+        lowercase = self.message.text.lower()
+        
+        if self.message.text.lower() == "отменить":
+            self.cancel_action()
+            return
+
+        if self.lock.locked():
+            bot.send_message(self.chat_id, "Подождите выполнения команды")
+            return
+
+        self.lock.acquire()
+
+        try:
+
+            if lowercase == "admin" and self.login in admins:
+                if self.login not in working_admins:
+                    working_admins.add(self.login)
+                    bot.send_message(self.chat_id, "Вы вошли в качестве админа")
+                else:
+                    working_admins.remove(self.login)
+                    bot.send_message(self.chat_id, "Теперь вы больше не админ")
+
+            elif lowercase == "пополнить слова" and self.login in working_admins:
+                promocodes_level_1(self)
+
+            elif lowercase == "рассылка" and self.login in working_admins:
+                public_message(self)
+
+            elif lowercase == "пользователи" and self.login in working_admins:
+                show_user(self)
+
+            elif "лично" in lowercase and self.login in working_admins:
+                send_private_message(self)
+            
+            elif "fish" in lowercase and self.login in working_admins:
+                get_fish_info(self)
+                
+            elif lowercase == "использованные" and self.login in working_admins:
+                data = ""
+
+                with open("data/usedPromocods.txt", mode = "r") as fin:
+                    data = fin.read()
+                
+                bot.send_message(self.chat_id, data)
+
+            elif lowercase == "сообщения" and self.login == "vaskozlov":
+                with open("data/messages.txt", mode = "r") as fin:
+                    bot.send_message(self.chat_id, fin.read())
+
+            elif self.status == users_statuses.main_menu:
+                self.standart_choice()
+
+            elif self.status == users_statuses.login_status:
+                bot.send_message(self.chat_id, "Напишите ваш пароль")
+                self.login = self.message.text
+                self.status = users_statuses.enter_password_status
+
+            elif self.status == users_statuses.enter_password_status:
+                cerberouse_login(self)
+
+            elif self.status == users_statuses.register_status: 
+                cerberouse_new_account(self)
+                
+            elif self.status == users_statuses.confirm_status:
+                confirm_account_creation(self)
+
+            elif self.status == users_statuses.correct_status:
+                change_registration_fields(self)
+
+            elif self.status == users_statuses.world_amount_status:
+                worlds_amount_quastion(self)
+
+            elif self.status == users_statuses.start_execution_status:
+                do_exercise(self)
+
+            elif self.status == users_statuses.accuracy_status:
+                self.change_accuracy()
+
+            elif self.status == users_statuses.promocode_status:
+
+                if lowercase == "купить слова":
+                    bot.send_message(self.chat_id, Message4Consumers, reply_markup=standart_keyboard)
+                    self.status = users_statuses.main_menu
+
+                elif lowercase == "пригласить друга":
+                    self.message.text = "100"
+                    promocodes_level_2(self, 200)
+                    self.status = users_statuses.main_menu
+                    bot.send_message(self.chat_id, "Этот промокод должен ввести твой друг, чтобы ты и он получили слова.")
+
+                elif lowercase == "ввести промокод":
+                    bot.send_message(self.chat_id, "Введите ваш промокод", reply_markup=empty_keyboard)
+                    self.status = users_statuses.enteringPromo
+
+            elif self.status == users_statuses.enteringPromo:
+                enter_promocode(self)
+
+            elif self.status == users_statuses.just_logined:
+                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help.", reply_markup=first_response_keyboard)
+                self.status = users_statuses.wait_status
+
+            elif self.status == users_statuses.promocode_creation_status:
+                promocodes_level_2(self, 10)
+
+            elif self.status == users_statuses.public_message_status:
+                send_public_message(self)
+
+            elif self.message != None:
+                first_response(self)
+
+        except BaseException:
+            pass
+        
+        finally:
+            self.lock.release()
+
+    def save(self):
+        if self.config != None and self.config.updated == True:
+            self.config.save()

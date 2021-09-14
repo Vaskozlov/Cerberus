@@ -1,0 +1,4 @@
+*.pyc
+./autostart
+geckpdriver.log
+
