@@ -12,6 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
 class Cermer:
 
     def __init__(self, user_config, lvl_text, end_number, delay):
@@ -48,16 +49,18 @@ class Cermer:
             pas.send_keys(Keys.ENTER)
             info = self.driver.find_element_by_class_name("header_content_label_ufio").text
             return info
-            
+
         except BaseException:
             return ""
 
     def can_commit_mistake(self, n: int) -> bool:
-        
+
         if self.user_config.answered == 0:
             return False
 
-        if n > 12 and 1 - ((self.user_config.mistakes + 1) / (self.end_number - 1)) > self.user_config.accuracy and 1 - (self.user_config.mistakes / self.user_config.answered) > self.user_config.accuracy:
+        if n > 12 and 1 - (
+                (self.user_config.mistakes + 1) / (self.end_number - 1)) > self.user_config.accuracy and 1 - (
+                self.user_config.mistakes / self.user_config.answered) > self.user_config.accuracy:
             return True
 
         return False
@@ -89,12 +92,12 @@ class Cermer:
         self.page_status = 'before_lvl'
 
         elem = self.driver.find_element_by_tag_name("button")
-        
+
         if elem.location['x'] != 0:
             elem.click()
 
         tolvl = self.driver.find_elements_by_tag_name("td")
-       
+
         if self.lvl_text.isdecimal():
             number = int(self.lvl_text)
 
@@ -115,18 +118,18 @@ class Cermer:
         time.sleep(0.5)
 
         button = self.driver.find_element_by_class_name("btn_yellow")
-        
+
         if button.text == "Поехали":
             self.page_status = 'bad_yellow_button'
             button.click()
             time.sleep(0.5)
-        
+
         elem = self.driver.find_elements_by_id("trainer_rno_right");
 
         if len(elem) > 0:
             self.correct_mistake()
             time.sleep(0.2)
-    
+
         complete_button = self.driver.find_elements_by_class_name("button btn_yellow")
 
         if len(complete_button) != 0:
@@ -187,7 +190,7 @@ class Cermer:
                 print(question_number, status, self.statistics, sep='; ')
 
             self.right = True
-            
+
             question = WebDriverWait(self.driver, self.delay).until(
                 EC.presence_of_element_located((By.ID, "trainer_question")))
 
@@ -250,7 +253,7 @@ class Cermer:
                     button1.click()
                 else:
                     button2.click()
-            
+
             try:
                 time.sleep(0.5)
                 for i in range(50):
@@ -277,7 +280,7 @@ class Cermer:
 
             CermerDatabase.add_answer(self.correct)
             self.user_config.add_answer(self.right)
-            
+
             if (callback != None):
                 callback(self.user_config.answered, self.user_config.mistakes)
 
@@ -303,7 +306,7 @@ class Cermer:
 
         except ImportError:
             pass
-        
+
         self.user_config.save()
         self.running = False
         return answer
@@ -325,11 +328,12 @@ class Cermer:
             self.driver.get("https://login.cerm.ru/_user/user_app.php?mod=pwg")
 
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.TAG_NAME, 'td')))
-            opened_exercises = self.driver.find_elements_by_class_name("exerciseOpen")  # содержит всю инфу про упражнениях
+            opened_exercises = self.driver.find_elements_by_class_name(
+                "exerciseOpen")  # содержит всю инфу про упражнениях
             exercise_information = []
 
             for j in range(len(opened_exercises)):
-                
+
                 information = opened_exercises[j].text.split('\n')
 
                 if " с " in information[0]:
@@ -339,10 +343,10 @@ class Cermer:
 
                 exercise_information.append([
                     information[0][
-                        information[0].index(" - ") + 3:
-                        index
-                    ], # Берет назание и номер упражнения из 1 строчки
-                    information[-1] # Берет прогресс из 3 строчки целиком
+                    information[0].index(" - ") + 3:
+                    index
+                    ],  # Берет назание и номер упражнения из 1 строчки
+                    information[-1]  # Берет прогресс из 3 строчки целиком
                 ])
 
         except BaseException:
@@ -353,6 +357,6 @@ class Cermer:
             self.driver.quit()
         except ImportError:
             pass
-        
+
         self.user_config.save()
         return exercise_information

@@ -1,11 +1,12 @@
 from globals import *
 
+
 def public_message(self):
     bot.send_message(self.chat_id, "Введите сообще. которое хотите отправить всем пользователям")
     self.status = users_statuses.public_message_status
 
+
 def send_public_message(self):
-    
     users_configs_lock.acquire()
 
     for elem in user_configs.keys():
@@ -16,6 +17,7 @@ def send_public_message(self):
 
     users_configs_lock.release()
     self.status = users_statuses.main_menu
+
 
 def show_user(self):
     data = []
@@ -29,6 +31,7 @@ def show_user(self):
     data.sort()
     bot.send_message(self.chat_id, "".join(data))
 
+
 def send_private_message(self):
     info = self.message.text.split(' ')
 
@@ -38,16 +41,17 @@ def send_private_message(self):
         if chat_id not in clientController.users_from_chat_id.keys():
             bot.send_message(self.chat_id, "Данный пользователь не обнаружен")
             return
-        
+
         data = info[2]
         for elem in info[3:]:
             data += " " + elem
 
-        with open("data/messages.txt", mode = "a") as fin:
-            fin.write(f"To {clientController.get_user_from_id(chat_id).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
+        with open("data/messages.txt", mode="a") as fin:
+            fin.write(
+                f"To {clientController.get_user_from_id(chat_id).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
 
         bot.send_message(chat_id, data)
-        
+
     except BaseException:
 
         if info[1] not in clientController.users_from_clogin.keys():
@@ -59,8 +63,9 @@ def send_private_message(self):
             for elem in info[3:]:
                 data += " " + elem
 
-            with open("data/messages.txt", mode = "a") as fin:
-                fin.write(f"To {clientController.get_user_from_login(info[1]).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
+            with open("data/messages.txt", mode="a") as fin:
+                fin.write(
+                    f"To {clientController.get_user_from_login(info[1]).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
 
             bot.send_message(clientController.get_user_from_login(info[1]).chat_id, data)
         except BaseException:
@@ -68,9 +73,10 @@ def send_private_message(self):
 
     bot.send_message(self.chat_id, "Сообщение отправлено получателю")
 
+
 def get_fish_info(self):
     info = self.message.text.split(' ')
-    
+
     try:
         usr = None
 

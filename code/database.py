@@ -3,19 +3,22 @@ import unicodedata
 from io import TextIOWrapper
 import multiprocessing as ml
 
+
 def add_user(path: TextIOWrapper, user):
     path.write(f"{user.id}\n")
+
 
 def remove_accents(input_str: str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
 
 def new_remove_accents(input_str: str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     answer = [c for c in nfkd_form if not unicodedata.combining(c)]
 
     for i in range(min(len(answer), len(input_str))):
-       
+
         if (input_str[i] == 'й'):
             answer[i] = input_str[i]
 
@@ -27,11 +30,12 @@ def new_remove_accents(input_str: str):
 
         elif input_str == 'Ё':
             answer[i] = input_str[i]
-    
+
     return "".join(answer)
 
+
 class DataBase:
-    
+
     def __init__(self, path: str):
         self.path = path
         self.base = set()
@@ -44,7 +48,7 @@ class DataBase:
         print("CLOSE")
 
         self.available = False
-        self.file.close()    
+        self.file.close()
 
     def add_answer(self, answer: str):
         self.lock.acquire()
@@ -63,7 +67,7 @@ class DataBase:
 
         for elem in self.file.readlines():
             self.base.add(elem.strip(" \n"))
-        
+
         self.lock.release()
 
     def find_raw(self, word: str):
@@ -72,8 +76,9 @@ class DataBase:
     def find_in_base(self, word: str):
         return remove_accents(word) in self.base
 
+
 class ClientConfig:
-    
+
     def __init__(self, path: str):
         self.mistakes: int = 0
         self.answered: int = 0
@@ -98,11 +103,11 @@ class ClientConfig:
     def load_config(self):
 
         try:
-            file = open(self.path, mode = "r+")
+            file = open(self.path, mode="r+")
 
         except BaseException:
             return
-        
+
         info = file.readlines()
 
         for elem in info:
@@ -115,7 +120,7 @@ class ClientConfig:
 
             if elem[0] == 'login':
                 self.login = elem[1]
-            
+
             elif elem[0] == 'password':
                 self.password = elem[1]
 
@@ -130,7 +135,7 @@ class ClientConfig:
 
             elif elem[0] == 'clogin':
                 self.cerberusLogin = elem[1]
-            
+
             elif elem[0] == 'cpassword':
                 self.cerberusPassword = elem[1]
 
@@ -160,13 +165,14 @@ class ClientConfig:
         self.save()
 
     def save(self):
-        file = open(self.path, mode = "w")
+        file = open(self.path, mode="w")
 
         data = f"login: {self.login}\npassword: {self.password}\npaid_answers: {self.paid_answers}\naccuracy: {self.accuracy}\ninformed: {self.informed}\nclogin: {self.cerberusLogin}\ncpassword: {self.cerberusPassword}\nchat_id: {self.chat_id}\nname: {self.name}\n"
         self.updated = False
 
         file.write(data)
         file.close()
+
 
 class ClientController:
 
@@ -181,12 +187,12 @@ class ClientController:
         for elem in os.listdir(path):
             if elem[0] == '.':
                 continue
-            
+
             conf = ClientConfig(f"{path}/{elem}")
-            
+
             if conf.chat_id != 0:
                 self.users_from_chat_id[conf.chat_id] = conf
-            
+
             self.users_from_clogin[conf.cerberusLogin] = conf
             self.cerm_logins.add(conf.login)
 
@@ -248,7 +254,7 @@ class ClientController:
 
         try:
             user = self.users_from_clogin[login]
-    
+
         except KeyError:
             pass
 
@@ -260,5 +266,5 @@ class ClientController:
         for elem in self.users_from_clogin.keys():
             if self.users_from_clogin[elem].updated == True:
                 self.users_from_clogin[elem].save()
-        
+
         print("Saving files...")

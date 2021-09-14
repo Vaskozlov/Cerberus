@@ -5,8 +5,8 @@ from selenium.webdriver.common import keys
 import telebot
 import threading as th
 import database as db
-#from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
+
 
 class users_statuses(enum.Enum):
     wait_status = 0
@@ -23,9 +23,10 @@ class users_statuses(enum.Enum):
     accuracy_status = 25
     promocode_status = 30
     promocode_creation_status = 1002
-    public_message_status     = 2000
+    public_message_status = 2000
     proccessing_exercise_status = 50
     enteringPromo = 3104
+
 
 class promocode:
 
@@ -33,6 +34,7 @@ class promocode:
         self.words = words
         self.words2creator = words2creator
         self.creatorLogin = creatorLogin
+
 
 promocodes = dict()
 invitedUsers = set()
@@ -85,6 +87,6 @@ for elem in prices.keys():
     if isinstance(elem, int):
         Message4Consumers += f"{elem} cлов за {prices[elem]} ₽\n"
     else:
-          Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
+        Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
 
 Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
