@@ -28,7 +28,7 @@ def proccess_exercise_loading(self):
                              f"Выберите упражнение из списка или напишите номер любого.\n" + "".join(info),
                              reply_markup=keyb)
         else:
-            bot.send_message(self.chat_id, "Нету активных упражнений.", reply_markup=standart_keyboard)
+            bot.send_message(self.chat_id, "Нет активных упражнений.", reply_markup=standart_keyboard)
             self.status = users_statuses.main_menu
 
         self.cerberous = None
