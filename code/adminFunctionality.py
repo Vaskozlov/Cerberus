@@ -2,7 +2,7 @@ from globals import *
 
 
 def public_message(self):
-    bot.send_message(self.chat_id, "Введите сообще. которое хотите отправить всем пользователям")
+    bot.send_message(self.chat_id, "Введите сообщение, которое хотите отправить всем пользователям")
     self.status = users_statuses.public_message_status
 
 
