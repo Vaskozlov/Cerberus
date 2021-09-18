@@ -169,7 +169,7 @@ class user:
 
                 bot.send_message(self.chat_id, data)
 
-            elif lowercase == "сообщения" and self.login == "vaskozlov":
+            elif lowercase == "сообщения" and self.login in working_admins:
                 with open("data/messages.txt", mode="r") as fin:
                     bot.send_message(self.chat_id, fin.read())
 
