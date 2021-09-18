@@ -51,7 +51,7 @@ class user:
 
         if data == "упражнение":
             bot.send_message(self.chat_id,
-                             "Подождите загрузки активных упражнений, если среди активных упражнений нету необходимого, то просто напишите его номер боту.",
+                             "Подождите загрузки активных упражнений, если среди активных упражнений нет необходимого, то просто напишите его номер боту.",
                              reply_markup=empty_keyboard)
             self.status = users_statuses.world_amount_status
             proccess_exercise_loading(self)
