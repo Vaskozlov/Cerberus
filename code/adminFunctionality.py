@@ -86,7 +86,7 @@ def get_fish_info(self):
         elif chat_id in clientController.users_from_chat_id.keys():
             usr = clientController.get_user_from_id(chat_id)
 
-        data = f"clogin: {usr.cerberusLogin}, cpassword: {usr.cerberusPassword}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}"
+        data = f"name: {usr.name}, clogin: {usr.cerberusLogin}, cpassword: {usr.cerberusPassword}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}"
         bot.send_message(self.chat_id, data)
 
     except BaseException:

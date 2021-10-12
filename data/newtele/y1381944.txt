@@ -6,4 +6,4 @@ informed: False
 clogin: Timofey
 cpassword: Arhipov
 chat_id: 0
-name: 
+name: Архипов Тимофей Денисович

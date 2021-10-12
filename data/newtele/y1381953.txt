@@ -6,4 +6,4 @@ informed: False
 clogin: vaskozlov
 cpassword: 152018
 chat_id: 482533202
-name: 
+name: Козлов Василий Сергеевич

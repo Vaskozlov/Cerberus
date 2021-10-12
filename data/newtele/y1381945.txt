@@ -1,9 +1,9 @@
 login: y1381945
 password: 9709
-paid_answers: 300
+paid_answers: 400
 accuracy: 1.0
 informed: False
 clogin: Nastya
 cpassword: Vinichenko
 chat_id: 0
-name: 
+name: Виниченко Анастасия Александровна

@@ -53,7 +53,7 @@ working_admins = set()
 prices = {100: 50, 350: 170, 500: 200, "безлимит": 1000}
 
 gHideBrowsers = True
-admins = {"vaskozlov", "Maximosa", "Li3"}
+admins = {"vaskozlov", "Maximosa", "QWERTY", "Bulka"}
 publicAdmins = "https://t.me/confidencess"
 cardNumbers = "5469 7200 1557 6693"
 

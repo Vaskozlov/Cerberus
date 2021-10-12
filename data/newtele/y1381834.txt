@@ -1,0 +1,9 @@
+login: y1381834
+password: 7128
+paid_answers: 0
+accuracy: 0.98
+informed: False
+clogin: Limoncik
+cpassword: Melkay2006
+chat_id: 649060983
+name: Барабанцев Владислав Дмитриевич

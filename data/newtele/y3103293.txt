@@ -6,4 +6,4 @@ informed: False
 clogin: QWERTY
 cpassword: QWERTY
 chat_id: 1143449786
-name: 
+name: Бодяев Дмитрий Дмитриевич

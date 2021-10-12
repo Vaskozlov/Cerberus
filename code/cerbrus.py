@@ -27,7 +27,7 @@ class Cermer:
         self.right = False
         self.running = False
 
-        self.driver: webdriver.Firefox = webdriver.Firefox(executable_path=ChromeDrivewWay, options=CermerOptions)
+        self.driver: webdriver.Firefox = webdriver.Firefox(executable_path="/Users/vasilijkozlov/Downloads/geckodriver")
 
     def check_registration(self, login, password):
         self.driver.get("https://login.cerm.ru/")
@@ -47,6 +47,7 @@ class Cermer:
             pas = self.driver.find_element_by_name("simora_pass")
             pas.send_keys(password)
             pas.send_keys(Keys.ENTER)
+            time.sleep(1)
             info = self.driver.find_element_by_class_name("header_content_label_ufio").text
             return info
 

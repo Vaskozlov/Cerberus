@@ -1,1 +1,6 @@
 Timofey 100
+test1 300
+test1 9999999999
+Nastya 100
+Bulka 9999999999
+Limoncik 100
