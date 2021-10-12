@@ -60,14 +60,15 @@ def cerberouse_new_account(self):
         self.cerberous = Cermer(user_config=clientController,
                                 lvl_text=self.exercise2do, end_number=0, delay=8)
 
-        if self.cerberous.check_registration(self.tmp_login, self.tmp_password) == False:
+        self.config.name = self.cerberous.check_this_fish(self.tmp_login, self.tmp_password)
+
+        if len(self.config.name) == 0:
             os.remove(f"data/newtele/{self.tmp_login}.txt")
             self.tmp_login = None
             self.tmp_password = None
             bot.send_message(self.chat_id,
                              "Не получилось войти в твой аккаунт на сайте cerm.ru. Введите логин от церма и пароль еще раз. Введите логин от церма.")
         else:
-            self.config.name = self.cerberous.check_this_fish(self.tmp_login, self.tmp_password)
             self.config.save()
             bot.send_message(self.chat_id,
                              f"Проверьте информацию\nВаш логин от церма: {self.tmp_login}\nВаш пароль от церма: {self.tmp_password}\nВаш логин для цербера: {self.login}\nВаш пароль для цербреа: {self.password}\nНапишите да, если все верно и нет, если есть ошибика")

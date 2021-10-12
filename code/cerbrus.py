@@ -29,16 +29,6 @@ class Cermer:
 
         self.driver: webdriver.Firefox = webdriver.Firefox(executable_path="/Users/vasilijkozlov/Downloads/geckodriver")
 
-    def check_registration(self, login, password):
-        self.driver.get("https://login.cerm.ru/")
-        log = self.driver.find_element_by_name("simora_login")
-        log.send_keys(login)
-        pas = self.driver.find_element_by_name("simora_pass")
-        pas.send_keys(password)
-        pas.send_keys(Keys.ENTER)
-
-        return len(self.driver.find_elements_by_id("error")) == 0
-
     def check_this_fish(self, login, password):  # возвращает Фамиялия Имя Отчество владельца аккаунта 
         try:
             self.driver.get("https://login.cerm.ru/")
