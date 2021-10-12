@@ -4,6 +4,6 @@ paid_answers: 100
 accuracy: 1.0
 informed: False
 clogin: QWERTY
-cpassword: QWERTY
+cpassword: 1948dh13
 chat_id: 0
 name: Бодяев Дмитрий Дмитриевич

@@ -1,0 +1,9 @@
+login: y3202726
+password: 237054
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: test2
+cpassword: test2
+chat_id: 0
+name: Вадимов Вадим Вадимович
