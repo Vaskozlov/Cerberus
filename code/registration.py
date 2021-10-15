@@ -3,7 +3,7 @@ from globals import *
 from cerbrus import *
 
 
-def cerberouse_new_account(self):
+def cerberus_new_account(self):
     if self.tmp_login == None:
 
         if self.message.text in clientController.cerm_logins or self.check_password(self.message.text, 6) == False:
@@ -44,7 +44,7 @@ def cerberouse_new_account(self):
         else:
             bot.send_message(self.chat_id, "Пароль содержит запрщенные символы или короче 6 символов")
 
-    if self.password != None and self.tmp_password != None and self.tmp_login != None and self.login != None:
+    if self.password is not None and self.tmp_password is not None and self.tmp_login is not None and self.login is not None:
 
         self.config = db.ClientConfig(f"data/newtele/{self.tmp_login}.txt")
 
@@ -57,8 +57,8 @@ def cerberouse_new_account(self):
 
         bot.send_message(self.chat_id, "Проверяю твой аккаунт...")
 
-        self.cerberous = Cermer(user_config=clientController,
-                                lvl_text=self.exercise2do, end_number=0, delay=8)
+        self.cerberous = Cerberus(user_config=clientController,
+                                  lvl_text=self.exercise2do, end_number=0, delay=8)
 
         self.config.name = self.cerberous.check_this_fish(self.tmp_login, self.tmp_password)
 
@@ -76,7 +76,7 @@ def cerberouse_new_account(self):
 
 
 def confirm_account_creation(self):
-    if (self.message.text.lower() == "да"):
+    if self.message.text.lower() == "да":
         clientController.add_user(self.config)
 
         self.config.save()

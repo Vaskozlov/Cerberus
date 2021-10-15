@@ -19,7 +19,7 @@ def new_remove_accents(input_str: str):
 
     for i in range(min(len(answer), len(input_str))):
 
-        if (input_str[i] == 'й'):
+        if input_str[i] == 'й':
             answer[i] = input_str[i]
 
         elif input_str[i] == 'Й':

@@ -2,10 +2,10 @@ from globals import *
 from cerbrus import *
 
 
-def proccess_exercise_loading(self):
+def process_exercise_loading(self):
     if self.status == users_statuses.world_amount_status:
 
-        self.cerberous = Cermer(
+        self.cerberous = Cerberus(
             user_config=self.config,
             lvl_text=self.exercise2do, end_number=self.exercise_amount, delay=8
         )
@@ -62,8 +62,8 @@ def do_exercise(self):
 
             try:
 
-                self.cerberous = Cermer(user_config=self.config,
-                                        lvl_text=self.exercise2do, end_number=self.exercise_amount, delay=8)
+                self.cerberous = Cerberus(user_config=self.config,
+                                          lvl_text=self.exercise2do, end_number=self.exercise_amount, delay=8)
 
                 result = self.cerberous.start(callback=self.callback)
 

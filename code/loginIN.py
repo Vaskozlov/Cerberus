@@ -36,7 +36,7 @@ def first_response(self):
     self.message = None
 
 
-def cerberouse_login(self):
+def cerberus_login(self):
     self.password = self.message.text
 
     try:

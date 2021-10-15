@@ -54,7 +54,7 @@ class user:
                              "Подождите загрузки активных упражнений, если среди активных упражнений нет необходимого, то просто напишите его номер боту.",
                              reply_markup=empty_keyboard)
             self.status = users_statuses.world_amount_status
-            proccess_exercise_loading(self)
+            process_exercise_loading(self)
 
         elif data == "точность":
             bot.send_message(self.chat_id,
@@ -111,7 +111,7 @@ class user:
                 self.status = users_statuses.main_menu
                 bot.send_message(self.chat_id, "Хорошо", reply_markup=standart_keyboard)
             else:
-                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help.",
+                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help_user.",
                                  reply_markup=first_response_keyboard)
                 self.status = users_statuses.none
 
@@ -182,10 +182,10 @@ class user:
                 self.status = users_statuses.enter_password_status
 
             elif self.status == users_statuses.enter_password_status:
-                cerberouse_login(self)
+                cerberus_login(self)
 
             elif self.status == users_statuses.register_status:
-                cerberouse_new_account(self)
+                cerberus_new_account(self)
 
             elif self.status == users_statuses.confirm_status:
                 confirm_account_creation(self)
@@ -223,7 +223,7 @@ class user:
                 enter_promocode(self)
 
             elif self.status == users_statuses.just_logined:
-                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help.",
+                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help_user.",
                                  reply_markup=first_response_keyboard)
                 self.status = users_statuses.wait_status
 

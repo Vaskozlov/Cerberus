@@ -13,14 +13,12 @@ def send_public_message(self):
         for chat_id in clientController.users_from_chat_id.keys():
             bot.send_message(chat_id, self.message.text)
 
-        self.status = users_statuses.main_menu
-
     except BaseException:
         pass
 
     finally:
+        self.status = users_statuses.main_menu
         clientController.login_lock.release()
-
 
 
 def show_user(self):
@@ -82,14 +80,7 @@ def get_fish_info(self):
     info = self.message.text.split(' ')
 
     try:
-        usr = None
-
-        if info[1] in clientController.users_from_clogin.keys():
-            usr = clientController.get_user_from_login(info[1])
-
-        elif chat_id in clientController.users_from_chat_id.keys():
-            usr = clientController.get_user_from_id(chat_id)
-
+        usr = clientController.get_user_from_login(info[1])
         data = f"name: {usr.name}, clogin: {usr.cerberusLogin}, cpassword: {usr.cerberusPassword}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}"
         bot.send_message(self.chat_id, data)
 

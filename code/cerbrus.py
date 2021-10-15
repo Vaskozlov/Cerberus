@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 
-class Cermer:
+class Cerberus:
 
     def __init__(self, user_config, lvl_text, end_number, delay):
         self.last_answer = ""
@@ -26,8 +26,7 @@ class Cermer:
         self.delay = delay
         self.right = False
         self.running = False
-
-        self.driver: webdriver.Firefox = webdriver.Firefox(executable_path="/Users/vasilijkozlov/Downloads/geckodriver")
+        self.driver: webdriver.Firefox = webdriver.Firefox(executable_path=ChromeDriverWay, options=CermerOptions)
 
     def check_this_fish(self, login, password):  # возвращает Фамиялия Имя Отчество владельца аккаунта 
         try:
@@ -57,7 +56,7 @@ class Cermer:
         return False
 
     def correct_mistake(self):
-        elem = self.driver.find_element_by_id("trainer_rno_right");
+        elem = self.driver.find_element_by_id("trainer_rno_right")
         correct_string = db.new_remove_accents(elem.text)
         CermerDatabase.fix(self.correct, correct_string)
 
@@ -227,7 +226,7 @@ class Cermer:
 
             can_commit: bool = self.can_commit_mistake(min(len(variant1), len(variant2)))
 
-            if self.correct == None:
+            if self.correct is None:
                 self.statistics["Not found"] += 1
                 self.logout()
                 self.from_login_to_questions()
@@ -274,7 +273,7 @@ class Cermer:
             CermerDatabase.add_answer(self.correct)
             self.user_config.add_answer(self.right)
 
-            if (callback != None):
+            if callback is not None:
                 callback(self.user_config.answered, self.user_config.mistakes)
 
         out_from_question = WebDriverWait(self.driver, self.delay).until(

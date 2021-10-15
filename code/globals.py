@@ -73,11 +73,11 @@ working_users = dict()
 bot = telebot.TeleBot("1463835745:AAEsUMnybJNU5GFzXr_FAqRz7lY6qyEg4Mg")
 
 if sys.platform == "linux":
-    ChromeDrivewWay = "/usr/bin/chromedriver"
+    ChromeDriverWay = "/usr/bin/chromedriver"
 elif sys.platform == "darwin":
-    ChromeDrivewWay = "/opt/homebrew/bin/geckodriver"
+    ChromeDriverWay = "/opt/homebrew/bin/geckodriver"
 else:
-    ChromeDrivewWay = None
+    ChromeDriverWay = "/opt/homebrew/bin/geckodriver"
 
 CermerOptions: Options = Options()
 

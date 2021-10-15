@@ -1,8 +1,8 @@
-from globals import CermerOptions
-from cerbrus import Cermer
 import os
 import time
 from user import *
+from globals import CermerOptions
+from cerbrus import Cerberus
 
 with open("CerberousStart.log", mode="a") as fin:
     fin.write("Bot pid: " + str(os.getpid()) + "\n")
@@ -34,7 +34,7 @@ def starter(usr, message):
     usr.loop()
 
 
-def help(chat_id: int):
+def help_user(chat_id: int):
     try:
         help_images = [
             telebot.types.InputMediaPhoto(open(f"data/images/example/{file}", "rb")) for file in
@@ -48,9 +48,9 @@ def help(chat_id: int):
                          "Возникла ошибка при отправке примеров использования бота. Попробуйте еще раз или обратитесь к администратору https://t.me/confidencess.")
 
 
-@bot.message_handler(commands=["help"])
+@bot.message_handler(commands=["help_user"])
 def help_user(message):
-    th1 = th.Thread(target=help, args=[message.chat.id])
+    th1 = th.Thread(target=help_user, args=[message.chat.id])
     th1.start()
 
 
@@ -85,15 +85,15 @@ def stop_user(chat_id: int):
         usr = working_users[chat_id]
         working_users_lock.release()
 
-        if usr.cerberous != None:
+        if usr.cerberous is not None:
             usr.cerberous.running = False
 
         usr.lock.acquire()
 
-        if usr.cerberous != None:
+        if usr.cerberous is not None:
             usr.cerberous.running = False
 
-            while usr.cerberous != None:
+            while usr.cerberous is not None:
                 if usr.status == users_statuses.main_menu:
                     break
                 else:
