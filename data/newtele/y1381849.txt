@@ -1,6 +1,6 @@
 login: y1381849
 password: 2352
-paid_answers: 10
+paid_answers: 200
 accuracy: 1.0
 informed: False
 clogin: pashamorev

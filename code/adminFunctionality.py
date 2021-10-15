@@ -7,16 +7,20 @@ def public_message(self):
 
 
 def send_public_message(self):
-    users_configs_lock.acquire()
+    clientController.login_lock.acquire()
 
-    for elem in user_configs.keys():
-        usr = user_configs[elem]
+    try:
+        for chat_id in clientController.users_from_chat_id.keys():
+            bot.send_message(chat_id, self.message.text)
 
-        if usr.chat_id != 0:
-            bot.send_message(usr.chat_id, self.message.text)
+        self.status = users_statuses.main_menu
 
-    users_configs_lock.release()
-    self.status = users_statuses.main_menu
+    except BaseException:
+        pass
+
+    finally:
+        clientController.login_lock.release()
+
 
 
 def show_user(self):
