@@ -1,9 +1,0 @@
-login: y1381944
-password: 6561
-paid_answers: 200
-accuracy: 0.98
-informed: False
-clogin: Timofey
-cpassword: Arhipov
-chat_id: 0
-name: Архипов Тимофей Денисович

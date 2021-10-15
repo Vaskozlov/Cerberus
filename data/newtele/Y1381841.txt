@@ -1,0 +1,9 @@
+login: Y1381841
+password: 2037
+paid_answers: 9999999436
+accuracy: 0.98
+informed: False
+clogin: Kukurusa
+cpassword: TearsOfPAIN
+chat_id: 1329951183
+name: Даровских Дарья Александровна

@@ -59,6 +59,8 @@ class Cermer:
     def correct_mistake(self):
         elem = self.driver.find_element_by_id("trainer_rno_right");
         correct_string = db.new_remove_accents(elem.text)
+        CermerDatabase.fix(self.correct, correct_string)
+
         self.correct = correct_string  # CermerDatabase.add_answer(correct_string)
         self.right = False
 

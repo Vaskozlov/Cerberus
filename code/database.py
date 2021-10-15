@@ -50,13 +50,38 @@ class DataBase:
         self.available = False
         self.file.close()
 
+    def fix(self, wrong, right):
+        self.lock.acquire()
+
+        if wrong is self.base:
+            self.base.remove(wrong)
+        else:
+            self.lock.release()
+            return
+
+        self.base.add(right)
+
+        if self.available:
+            self.file.close()
+
+        self.file = open(self.path, "w")
+
+        for elem in self.base:
+            self.file.write(elem + "\n")
+
+        self.file.close()
+        self.file = open(self.path, "r+")
+        self.available = True
+
+        self.lock.release()
+
     def add_answer(self, answer: str):
         self.lock.acquire()
 
-        if self.available == False:
+        if not self.available:
             self.file = open(self.path, "r+")
 
-        if (answer not in self.base and answer != None):
+        if answer not in self.base and answer is not None:
             self.base.add(answer)
             self.file.write(answer + "\n")
 

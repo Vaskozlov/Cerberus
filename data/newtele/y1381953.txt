@@ -1,9 +1,9 @@
 login: y1381953
 password: 3862
 paid_answers: 100
-accuracy: 0.98
+accuracy: 0.95
 informed: False
 clogin: vaskozlov
 cpassword: 152018
-chat_id: 482533202
+chat_id: 0
 name: Козлов Василий Сергеевич

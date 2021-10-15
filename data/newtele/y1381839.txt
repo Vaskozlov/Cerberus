@@ -1,6 +1,6 @@
 login: y1381839
 password: 2932
-paid_answers: 10000000199
+paid_answers: 9999999809
 accuracy: 0.98
 informed: False
 clogin: Bulka

@@ -75,11 +75,15 @@ bot = telebot.TeleBot("1463835745:AAEsUMnybJNU5GFzXr_FAqRz7lY6qyEg4Mg")
 if sys.platform == "linux":
     ChromeDrivewWay = "/usr/bin/chromedriver"
 elif sys.platform == "darwin":
-    ChromeDrivewWay = "/Users/vasilijkozlov/Downloads/geckodriver"
+    ChromeDrivewWay = "/opt/homebrew/bin/geckodriver"
 else:
     ChromeDrivewWay = None
 
 CermerOptions: Options = Options()
+
+if gHideBrowsers:
+    CermerOptions.headless = True
+
 CermerDatabase: db.DataBase = db.DataBase("data/new_base2.txt")
 Message4Consumers = f"Вы можете приобрести любой пакет слов из перечисленных:\n"
 
