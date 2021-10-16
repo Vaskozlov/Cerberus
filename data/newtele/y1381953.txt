@@ -1,6 +1,6 @@
 login: y1381953
 password: 3862
-paid_answers: 100
+paid_answers: 110
 accuracy: 0.95
 informed: False
 clogin: vaskozlov

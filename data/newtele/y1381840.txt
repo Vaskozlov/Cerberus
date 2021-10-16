@@ -1,0 +1,9 @@
+login: y1381840
+password: 9609
+paid_answers: 1100
+accuracy: 0.99
+informed: False
+clogin: Cotejka164
+cpassword: 123456
+chat_id: 1374713835
+name: Гусева Мария Павловна

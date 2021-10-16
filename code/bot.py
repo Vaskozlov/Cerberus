@@ -34,7 +34,7 @@ def starter(usr, message):
     usr.loop()
 
 
-def help_user(chat_id: int):
+def help_user_message(chat_id: int):
     try:
         help_images = [
             telebot.types.InputMediaPhoto(open(f"data/images/example/{file}", "rb")) for file in
@@ -48,9 +48,9 @@ def help_user(chat_id: int):
                          "Возникла ошибка при отправке примеров использования бота. Попробуйте еще раз или обратитесь к администратору https://t.me/confidencess.")
 
 
-@bot.message_handler(commands=["help_user"])
+@bot.message_handler(commands=["help"])
 def help_user(message):
-    th1 = th.Thread(target=help_user, args=[message.chat.id])
+    th1 = th.Thread(target=help_user_message, args=[message.chat.id])
     th1.start()
 
 
