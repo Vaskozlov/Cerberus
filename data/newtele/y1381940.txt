@@ -1,0 +1,9 @@
+login: y1381940
+password: 8742
+paid_answers: 200
+accuracy: 0.98
+informed: False
+clogin: y1381940
+cpassword: aa8742
+chat_id: 936847416
+name: Чистякова Алиса Алексеевна
