@@ -111,7 +111,7 @@ class user:
                 self.status = users_statuses.main_menu
                 bot.send_message(self.chat_id, "Хорошо", reply_markup=standart_keyboard)
             else:
-                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help_user.",
+                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help.",
                                  reply_markup=first_response_keyboard)
                 self.status = users_statuses.none
 
@@ -223,7 +223,7 @@ class user:
                 enter_promocode(self)
 
             elif self.status == users_statuses.just_logined:
-                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help_user.",
+                bot.send_message(self.chat_id, "Привет, что ты хочешь сделать? Если нужна помощь, то напиши /help.",
                                  reply_markup=first_response_keyboard)
                 self.status = users_statuses.wait_status
 

@@ -6,12 +6,11 @@ from globals import *
 import database as db
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
+from driver_controller import DriverController
 
 class Cerberus:
 
@@ -26,7 +25,7 @@ class Cerberus:
         self.delay = delay
         self.right = False
         self.running = False
-        self.driver: webdriver.Firefox = webdriver.Firefox(executable_path=ChromeDriverWay, options=CermerOptions, service_log_path="/dev/null")
+        self.driver: webdriver.Firefox = DriverController.get_driver()
 
     def check_this_fish(self, login, password):  # возвращает Фамиялия Имя Отчество владельца аккаунта 
         try:
@@ -292,22 +291,16 @@ class Cerberus:
 
         print("Elapsed time: ", elapsed_time)
 
-        try:
-            self.driver.close()
-            self.driver.quit()
-
-        except ImportError:
-            pass
+        DriverController.release_driver(self.driver)
+        self.driver = None
 
         self.user_config.save()
         self.running = False
         return answer
 
     def __del__(self):
-        try:
-            self.driver.quit()
-        except BaseException:
-            pass
+        DriverController.release_driver(self.driver)
+        self.driver = None
 
     def load_exercise(self) -> list:
         try:
@@ -344,11 +337,8 @@ class Cerberus:
         except BaseException:
             self.user_config.null()
 
-        try:
-            self.driver.close()
-            self.driver.quit()
-        except ImportError:
-            pass
+        DriverController.release_driver(self.driver)
+        self.driver = None
 
         self.user_config.save()
         return exercise_information

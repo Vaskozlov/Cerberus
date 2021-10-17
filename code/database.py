@@ -43,12 +43,12 @@ class DataBase:
         self.lock = ml.Lock()
         self.read_base()
         self.available = True
+        self.count = 0
 
     def __del__(self):
-        print("CLOSE")
-
         self.available = False
         self.file.close()
+        print("CLOSE")
 
     def fix(self, wrong, right):
         self.lock.acquire()
@@ -59,6 +59,7 @@ class DataBase:
             self.lock.release()
             return
 
+        self.count += 1
         self.base.add(right)
 
         if self.available:
@@ -84,6 +85,11 @@ class DataBase:
         if answer not in self.base and answer is not None:
             self.base.add(answer)
             self.file.write(answer + "\n")
+            self.count += 1
+
+        if self.count > 4:
+            self.file.close()
+            self.file = open(self.path, "r+")
 
         self.lock.release()
 
