@@ -65,11 +65,16 @@ class DataBase:
         if self.available:
             self.file.close()
 
-        self.file = open(self.path, "w")
+        self.file = open(self.path, "wb")
 
+        i = 0
         for elem in self.base:
-            self.file.write(elem + "\n")
+            if i < 10:
+                print(elem)
+                i += 1
 
+            self.file.write(str(elem) + '\n')
+        print("File was reload")
         self.file.close()
         self.file = open(self.path, "r+")
         self.available = True
@@ -83,11 +88,14 @@ class DataBase:
             self.file = open(self.path, "r+")
 
         if answer not in self.base and answer is not None:
+            print(f"adding: {answer}")
             self.base.add(answer)
             self.file.write(answer + "\n")
             self.count += 1
 
         if self.count > 4:
+            self.count = 0
+            print("Changes were saved!")
             self.file.close()
             self.file = open(self.path, "r+")
 
