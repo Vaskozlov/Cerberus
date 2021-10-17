@@ -31,7 +31,7 @@ def cerberus_new_account(self):
         if self.message.text in clientController.users_from_clogin.keys() or self.check_password(self.message.text,
                                                                                                  5) == False:
             bot.send_message(self.chat_id,
-                             "Данный логин нельзя использовать. Также логин долженн бюыть минимум 6 символом и состоять из букв и цифр")
+                             "Данный логин нельзя использовать. Также логин должен содержать как минимум 6 символов и состоять из букв и цифр")
         else:
             self.login = self.message.text
 
