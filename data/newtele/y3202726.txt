@@ -1,9 +1,9 @@
 login: y3202726
 password: 237054
-paid_answers: 9999987499
+paid_answers: 9999987199
 accuracy: 1.0
 informed: False
 clogin: test2
 cpassword: test2
-chat_id: 0
+chat_id: 482533202
 name: Вадимов Вадим Вадимович
