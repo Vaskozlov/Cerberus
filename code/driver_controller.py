@@ -9,8 +9,8 @@ class driver_controller:
         self.add_lock: ml.Lock = ml.Lock()
         self.take_lock: ml.Lock = ml.Lock()
         self.drivers: deque = deque()
-        #self.add_driver()
-        #self.add_driver()
+        self.add_driver()
+        self.add_driver()
 
     def add_driver(self):
         self.add_lock.acquire()
