@@ -1,9 +1,9 @@
 login: y3202732
 password: 896772
-paid_answers: 9999965005
+paid_answers: 9999964905
 accuracy: 1.0
 informed: False
 clogin: test1
 cpassword: test1
-chat_id: 664322462
+chat_id: 0
 name: Аадимов Вадим Вадимович

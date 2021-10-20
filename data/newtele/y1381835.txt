@@ -1,7 +1,7 @@
 login: y1381835
 password: 9736
 paid_answers: 0
-accuracy: 0.95
+accuracy: 0.99
 informed: False
 clogin: 92947
 cpassword: 948284

@@ -1,0 +1,9 @@
+login: y3202740
+password: 892540
+paid_answers: 10000001199
+accuracy: 0.98
+informed: False
+clogin: cerberousLogin
+cpassword: cerberousPassword
+chat_id: 0
+name: Мванов Иван Иванович

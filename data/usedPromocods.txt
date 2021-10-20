@@ -16,3 +16,7 @@ Cotejka164 1000
 test2 9999999999
 bebra228 100
 y1381940 100
+kikavislaya 100
+cerberousLogin 900
+friendLogin 100
+cerberousLogin 9999999999
