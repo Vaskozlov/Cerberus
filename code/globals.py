@@ -94,3 +94,11 @@ for elem in prices.keys():
         Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
 
 Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
+
+with open ('data/cerberus_help/cerberus_text.txt', mode='r') as fin:
+    help_user_text = fin.read()
+
+help_images = [
+    telebot.types.InputMediaPhoto(open(f"data/cerberus_help/cerberus_help_images/{file}", "rb")) for file in
+    os.listdir("data/cerberus_help/cerberus_help_images")
+]
