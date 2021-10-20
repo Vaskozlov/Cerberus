@@ -37,8 +37,7 @@ def starter(usr, message):
 def help_user_message(chat_id: int):
     try:
         help_images = [
-            telebot.types.InputMediaPhoto(open(f"data/images/example/{file}", "rb")) for file in
-            os.listdir("data/images/example")
+            telebot.types.InputMediaPhoto(open(f"data/images/{file}", "rb")) for file in os.listdir("data/images")
         ]
         bot.send_message(chat_id,
                          "На фоторграфиях показаны примеры использования бота: 1-2 фотография регистрация, 3 вход в аккант бота, 4 изменение точности, 5 ввод промокода, 6 выполнение упражнения. Если вы хотите отменить как-либо действие напишите \"Отменить\"")
