@@ -36,9 +36,6 @@ def starter(usr, message):
 
 def help_user_message(chat_id: int):
     try:
-        help_images = [
-            telebot.types.InputMediaPhoto(open(f"data/cerberus_help/cerberus_help_images/{file}", "rb")) for file in os.listdir("data/cerberus_help/cerberus_help_images")
-        ]
         bot.send_message(chat_id, help_user_text)
         bot.send_media_group(chat_id, help_images)
     except BaseException:
