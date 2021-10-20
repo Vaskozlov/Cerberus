@@ -94,5 +94,3 @@ for elem in prices.keys():
         Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
 
 Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
-with open (data/cerberous_help_text.txt, mode='r') as fin:
-    help_user_text = fin.read()
