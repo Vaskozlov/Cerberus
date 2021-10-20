@@ -37,11 +37,9 @@ def starter(usr, message):
 def help_user_message(chat_id: int):
     try:
         help_images = [
-            telebot.types.InputMediaPhoto(open(f"data/images/example/{file}", "rb")) for file in
-            os.listdir("data/images/example")
+            telebot.types.InputMediaPhoto(open(f"data/cerberus_help/cerberus_help_images/{file}", "rb")) for file in os.listdir("data/cerberus_help/cerberus_help_images")
         ]
-        bot.send_message(chat_id,
-                         "На фоторграфиях показаны примеры использования бота: 1-2 фотография регистрация, 3 вход в аккант бота, 4 изменение точности, 5 ввод промокода, 6 выполнение упражнения. Если вы хотите отменить как-либо действие напишите \"Отменить\"")
+        bot.send_message(chat_id, help_user_text)
         bot.send_media_group(chat_id, help_images)
     except BaseException:
         bot.send_message(chat_id,
