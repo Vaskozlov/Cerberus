@@ -36,11 +36,16 @@ def starter(usr, message):
 
 def help_user_message(chat_id: int):
     try:
+        help_images = [
+            telebot.types.InputMediaPhoto(open(f"data/cerberus_help/cerberus_help_images/{file}", "rb")) for file in
+            os.listdir("data/cerberus_help/cerberus_help_images")
+        ]
         bot.send_message(chat_id, help_user_text)
         bot.send_media_group(chat_id, help_images)
     except BaseException:
         bot.send_message(chat_id,
-                         "Возникла ошибка при отправке примеров использования бота. Попробуйте еще раз или обратитесь к администратору https://t.me/confidencess.")
+                         "Возникла ошибка при отправке примеров использования бота. Попробуйте еще раз или обратитесь "
+                         "к администратору https://t.me/confidencess.")
 
 
 @bot.message_handler(commands=["help"])
