@@ -78,6 +78,7 @@ def do_exercise(self):
                     bot.send_message(self.chat_id, f"У вас закончились слова. {Message4Consumers}")
 
             except BaseException as e:
+                print(e)
                 bot.send_message(self.chat_id, "Возникла ошибка, убедитесь в правильности номера упражнения",
                                  reply_markup=standart_keyboard)
                 self.status = users_statuses.main_menu

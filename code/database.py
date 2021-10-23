@@ -51,6 +51,11 @@ class DataBase:
         print("CLOSE")
 
     def fix(self, wrong, right):
+        wrong2 = wrong.encode("utf-8", "replace")
+        right2 = right.encode("utf-8", "replace")
+        wrong = wrong2.decode("utf-8", "replace")
+        right = right2.decode("utf-8", "replace")
+
         self.lock.acquire()
 
         if wrong is self.base:
@@ -65,15 +70,15 @@ class DataBase:
         if self.available:
             self.file.close()
 
-        self.file = open(self.path, "wb")
+        self.file = open(self.path, "w")
 
         i = 0
         for elem in self.base:
             if i < 10:
                 print(elem)
                 i += 1
-
-            self.file.write(str(elem) + '\n')
+            l = elem.encode("utf-8", "replace")
+            self.file.write(str(l.decode("utf-8", "replace")) + '\n')
         print("File was reload")
         self.file.close()
         self.file = open(self.path, "r+")
@@ -82,6 +87,9 @@ class DataBase:
         self.lock.release()
 
     def add_answer(self, answer: str):
+        answer2 = answer.encode("utf-8", "replace")
+        answer = answer2.decode("utf-8", "replace")
+
         self.lock.acquire()
 
         if not self.available:
@@ -105,7 +113,7 @@ class DataBase:
         self.lock.acquire()
 
         for elem in self.file.readlines():
-            self.base.add(elem.strip(" \n"))
+            self.base.add(elem.strip(" \n\r"))
 
         self.lock.release()
 

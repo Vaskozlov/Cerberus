@@ -236,8 +236,8 @@ class user:
             elif self.message != None:
                 first_response(self)
 
-        except BaseException:
-            pass
+        except BaseException as e:
+            print(e)
 
         finally:
             self.lock.release()
