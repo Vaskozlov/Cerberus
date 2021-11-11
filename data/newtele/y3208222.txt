@@ -1,0 +1,9 @@
+login: y3208222
+password: 644061
+paid_answers: 200
+accuracy: 0.98
+informed: False
+clogin: success
+cpassword: 110720066dogg
+chat_id: 1233633517
+name: Дубровская Яна Николаевна

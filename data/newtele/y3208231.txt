@@ -1,0 +1,9 @@
+login: y3208231
+password: 769685
+paid_answers: 66
+accuracy: 0.75
+informed: False
+clogin: qwe1234
+cpassword: 123qwe
+chat_id: 1207100586
+name: Олешко Алёна Игоревна

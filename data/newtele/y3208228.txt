@@ -1,0 +1,9 @@
+login: y3208228
+password: 861974
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: kom6248
+cpassword: 182669
+chat_id: 1757648553
+name: Комарова Аделина Мансуровна

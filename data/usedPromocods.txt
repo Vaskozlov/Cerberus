@@ -20,3 +20,6 @@ kikavislaya 100
 cerberousLogin 900
 friendLogin 100
 cerberousLogin 9999999999
+success 100
+qwe1234 100
+nasa1 500

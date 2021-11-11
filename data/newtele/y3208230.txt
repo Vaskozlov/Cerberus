@@ -1,6 +1,6 @@
 login: y3208230
 password: 812532
-paid_answers: 10
+paid_answers: 410
 accuracy: 0.98
 informed: False
 clogin: 890123
