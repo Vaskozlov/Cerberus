@@ -164,13 +164,13 @@ class user:
             elif lowercase == "использованные" and self.login in working_admins:
                 data = ""
 
-                with open("data/usedPromocods.txt", mode="r") as fin:
+                with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
                     data = fin.read()
 
                 bot.send_message(self.chat_id, data)
 
             elif lowercase == "сообщения" and self.login in working_admins:
-                with open("data/messages.txt", mode="r") as fin:
+                with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
                     bot.send_message(self.chat_id, fin.read())
 
             elif self.status == users_statuses.main_menu:

@@ -39,7 +39,7 @@ class DataBase:
     def __init__(self, path: str):
         self.path = path
         self.base = set()
-        self.file = open(self.path, "r+")
+        self.file = open(self.path, "r+", encoding="utf-8")
         self.lock = ml.Lock()
         self.read_base()
         self.available = True
@@ -70,7 +70,7 @@ class DataBase:
         if self.available:
             self.file.close()
 
-        self.file = open(self.path, "w")
+        self.file = open(self.path, "w", encoding="utf-8")
 
         i = 0
         for elem in self.base:
@@ -81,7 +81,7 @@ class DataBase:
             self.file.write(str(l.decode("utf-8", "replace")) + '\n')
         print("File was reload")
         self.file.close()
-        self.file = open(self.path, "r+")
+        self.file = open(self.path, "r+", encoding="utf-8")
         self.available = True
 
         self.lock.release()
@@ -93,7 +93,7 @@ class DataBase:
         self.lock.acquire()
 
         if not self.available:
-            self.file = open(self.path, "r+")
+            self.file = open(self.path, "r+", encoding="utf-8")
 
         if answer not in self.base and answer is not None:
             print(f"adding: {answer}")
@@ -105,7 +105,7 @@ class DataBase:
             self.count = 0
             print("Changes were saved!")
             self.file.close()
-            self.file = open(self.path, "r+")
+            self.file = open(self.path, "r+", encoding="utf-8")
 
         self.lock.release()
 
@@ -150,7 +150,7 @@ class ClientConfig:
     def load_config(self):
 
         try:
-            file = open(self.path, mode="r+")
+            file = open(self.path, mode="r+", encoding="utf-8")
 
         except BaseException:
             return
@@ -212,7 +212,7 @@ class ClientConfig:
         self.save()
 
     def save(self):
-        file = open(self.path, mode="w")
+        file = open(self.path, mode="w", encoding="utf-8")
 
         data = f"login: {self.login}\npassword: {self.password}\npaid_answers: {self.paid_answers}\naccuracy: {self.accuracy}\ninformed: {self.informed}\nclogin: {self.cerberusLogin}\ncpassword: {self.cerberusPassword}\nchat_id: {self.chat_id}\nname: {self.name}\n"
         self.updated = False

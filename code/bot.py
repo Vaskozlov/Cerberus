@@ -4,7 +4,7 @@ from user import *
 from globals import CermerOptions
 from cerbrus import Cerberus
 
-with open("CerberousStart.log", mode="a") as fin:
+with open("CerberousStart.log", mode="a", encoding="utf-8") as fin:
     fin.write("Bot pid: " + str(os.getpid()) + "\n")
 
 print("Bot pid: " + str(os.getpid()) + "\n")
@@ -18,7 +18,7 @@ cancel_keyboard.row('Отменить')
 if gHideBrowsers:
     CermerOptions.headless = True
 
-with open("data/initedUsers.txt", mode="r") as fin:
+with open("data/initedUsers.txt", mode="r", encoding="utf-8") as fin:
     invitedUsers = set(fin.read().split('\n'))
 
 for i in range(ord('A'), ord('Z') + 1):

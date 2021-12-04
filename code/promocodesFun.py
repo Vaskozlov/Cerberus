@@ -54,13 +54,13 @@ def enter_promocode(self):
         elif promocodes[num].words == 100:
             invitedUsers.add(self.login)
 
-            with open("data/initedUsers.txt", mode="a") as fin:
+            with open("data/initedUsers.txt", mode="a", encoding="utf-8") as fin:
                 fin.write(self.login + "\n")
 
         if promocodes[num].creatorLogin not in invitedUsers:
             invitedUsers.add(promocodes[num].creatorLogin)
 
-            with open("data/initedUsers.txt", mode="a") as fin:
+            with open("data/initedUsers.txt", mode="a", encoding="utf-8") as fin:
                 fin.write(promocodes[num].creatorLogin + "\n")
 
         self.config.add_paid_aswers(promocodes[num].words)
@@ -69,7 +69,7 @@ def enter_promocode(self):
             thread = th.Thread(target=addPromocode, args=[promocodes[num]])
             thread.start()
 
-        with open("data/usedPromocods.txt", mode="a") as fin:
+        with open("data/usedPromocods.txt", mode="a", encoding="utf-8") as fin:
             fin.write(f"{self.login} {promocodes[num].words}\n")
 
         del promocodes[num]

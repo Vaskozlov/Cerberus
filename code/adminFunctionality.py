@@ -48,7 +48,7 @@ def send_private_message(self):
         for elem in info[3:]:
             data += " " + elem
 
-        with open("data/messages.txt", mode="a") as fin:
+        with open("data/messages.txt", mode="a", encoding="utf-8") as fin:
             fin.write(
                 f"To {clientController.get_user_from_id(chat_id).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
 
@@ -65,7 +65,7 @@ def send_private_message(self):
             for elem in info[3:]:
                 data += " " + elem
 
-            with open("data/messages.txt", mode="a") as fin:
+            with open("data/messages.txt", mode="a", encoding="utf-8") as fin:
                 fin.write(
                     f"To {clientController.get_user_from_login(info[1]).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
 

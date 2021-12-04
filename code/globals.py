@@ -71,15 +71,9 @@ add_choise = telebot.types.ReplyKeyboardMarkup()
 
 clientController = db.ClientController("data/newtele")
 working_users = dict()
-bot = telebot.TeleBot("1463835745:AAEsUMnybJNU5GFzXr_FAqRz7lY6qyEg4Mg")
+bot = telebot.TeleBot("5046261943:AAEVDi8_yQfIF235vQZYDTgXsibHtMXOJ5w")
 
-if sys.platform == "linux":
-    ChromeDriverWay = "/usr/bin/geckodriver"
-elif sys.platform == "darwin":
-    ChromeDriverWay = "/opt/homebrew/bin/geckodriver"
-else:
-    ChromeDriverWay = "/opt/homebrew/bin/geckodriver"
-
+ChromeDriverWay = sys.argv[1]
 CermerOptions: Options = Options()
 
 if gHideBrowsers:
@@ -96,5 +90,5 @@ for elem in prices.keys():
 
 Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
 
-with open ('data/cerberus_help/сerberus_help_text.txt', mode='r') as fin:
+with open ('data/cerberus_help/сerberus_help_text.txt', mode='r', encoding="utf-8") as fin:
     help_user_text = fin.read()
