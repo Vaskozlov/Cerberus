@@ -1,0 +1,9 @@
+login: y2525128
+password: 5065
+paid_answers: 0
+accuracy: 0.98
+informed: False
+clogin: Alena
+cpassword: Alena120706
+chat_id: 1310860596
+name: Пушкина Алена Александровна

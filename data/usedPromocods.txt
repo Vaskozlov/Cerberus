@@ -23,3 +23,4 @@ cerberousLogin 9999999999
 success 100
 qwe1234 100
 nasa1 500
+Alena 100

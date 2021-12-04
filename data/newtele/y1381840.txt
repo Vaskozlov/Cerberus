@@ -1,6 +1,6 @@
 login: y1381840
 password: 9609
-paid_answers: 800
+paid_answers: 600
 accuracy: 0.98
 informed: False
 clogin: Cotejka164

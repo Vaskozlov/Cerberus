@@ -32,3 +32,5 @@ success
 890123
 qwe1234
 QWERTY
+Alena
+dostan
