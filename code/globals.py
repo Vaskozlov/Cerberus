@@ -71,9 +71,9 @@ add_choise = telebot.types.ReplyKeyboardMarkup()
 
 clientController = db.ClientController("data/newtele")
 working_users = dict()
-bot = telebot.TeleBot("5046261943:AAEVDi8_yQfIF235vQZYDTgXsibHtMXOJ5w")
+bot = telebot.TeleBot(sys.argv[1])
 
-ChromeDriverWay = sys.argv[1]
+ChromeDriverWay = sys.argv[2]
 CermerOptions: Options = Options()
 
 if gHideBrowsers:
