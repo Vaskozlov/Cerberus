@@ -4,10 +4,6 @@ import multiprocessing as ml
 from collections import deque
 from selenium import webdriver
 
-if sys.platform == "linux" or sys.platform == "darwin":
-    ServerLogPath = "/dev/null"
-else:
-    ServerLogPath = "."
 
 class driver_controller:
     def __init__(self):
@@ -19,9 +15,16 @@ class driver_controller:
 
     def add_driver(self):
         self.add_lock.acquire()
-        self.drivers.append(webdriver.Firefox(executable_path=ChromeDriverWay,
-                                              options=CermerOptions, service_log_path=ServerLogPath))
-        self.add_lock.release()
+
+        if sys.platform == "linux" or sys.platform == "darwin":
+            server_log_path = "/dev/null"
+            self.drivers.append(webdriver.Firefox(executable_path=ChromeDriverWay,
+                                                  options=CermerOptions, service_log_path=server_log_path))
+        else:
+            self.drivers.append(webdriver.Firefox(executable_path=ChromeDriverWay,
+                                                  options=CermerOptions))
+
+            self.add_lock.release()
 
     def get_driver(self) -> webdriver:
         self.take_lock.acquire()
