@@ -24,7 +24,7 @@ class driver_controller:
             self.drivers.append(webdriver.Firefox(executable_path=ChromeDriverWay,
                                                   options=CermerOptions))
 
-            self.add_lock.release()
+        self.add_lock.release()
 
     def get_driver(self) -> webdriver:
         self.take_lock.acquire()
