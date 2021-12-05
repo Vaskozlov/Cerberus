@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from driver_controller import DriverController
 
+
 class Cerberus:
 
     def __init__(self, user_config, lvl_text, end_number, delay):
@@ -176,7 +177,7 @@ class Cerberus:
         self.try_login()
 
         while question_number < self.end_number and self.running:
-            if (question_number & 15 == 0):
+            if question_number & 15 == 0:
                 status = "Page status: %s" % self.page_status
                 print(question_number, status, self.statistics, sep='; ')
 
