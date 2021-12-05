@@ -21,15 +21,14 @@ def process_exercise_loading(self):
         for elem in data:
             keyb.add(elem[0])
 
+        keyb.add("Отменить")
         if len(data) > 0:
             info = [f"{elem[0]} прогресс {elem[1]}\n" for elem in data]
-            keyb.add("Отменить")
             bot.send_message(self.chat_id,
-                             f"Выберите упражнение из списка или напишите номер любого.\n" + "".join(info),
+                             f"Выберите активное упражнение из списка. Если вам требуется выполнить неактивное упражнение, то напишите его номер вручную.\n" + "".join(info),
                              reply_markup=keyb)
         else:
-            bot.send_message(self.chat_id, "Нет активных упражнений.", reply_markup=standart_keyboard)
-            self.status = users_statuses.main_menu
+            bot.send_message(self.chat_id, "Нет активных упражнений. Если вам требуется выполнить неактивное упражнение, то напишите его номер вручную", reply_markup=keyb)
 
         self.cerberous = None
 
