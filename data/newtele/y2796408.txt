@@ -1,6 +1,6 @@
 login: y2796408
 password: 003836
-paid_answers: 100
+paid_answers: 0
 accuracy: 0.99
 informed: False
 clogin: dostan

@@ -1,9 +1,9 @@
 login: y1770780
 password: 4475
-paid_answers: 52
+paid_answers: 0
 accuracy: 1.0
 informed: False
 clogin: nasa1
 cpassword: 12123232Mi
-chat_id: 1410088737
+chat_id: 0
 name: Морев Илья Артемович
