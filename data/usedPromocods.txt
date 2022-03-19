@@ -24,3 +24,7 @@ success 100
 qwe1234 100
 nasa1 500
 Alena 100
+Bulka 100
+nesnusik 100
+nasa1 800
+ladno 100

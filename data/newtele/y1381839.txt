@@ -1,9 +1,9 @@
 login: y1381839
 password: 2932
-paid_answers: 9999999865
-accuracy: 0.97
+paid_answers: 9999999764
+accuracy: 0.96
 informed: False
 clogin: Bulka
 cpassword: TheBULKA5
-chat_id: 0
+chat_id: 1357198734
 name: Григоренко Екатерина Денисовна

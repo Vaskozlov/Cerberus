@@ -1,0 +1,9 @@
+login: y2451507
+password: 113994
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: nesnusik
+cpassword: nesnusik
+chat_id: 1015362338
+name: Журавлева Валерия Ивановна

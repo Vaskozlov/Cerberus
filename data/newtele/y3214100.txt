@@ -1,0 +1,9 @@
+login: y3214100
+password: 471316
+paid_answers: 200
+accuracy: 1.0
+informed: False
+clogin: kikilol
+cpassword: kikilol1
+chat_id: 1051833229
+name: Вахрушева Ксения Максимовна
