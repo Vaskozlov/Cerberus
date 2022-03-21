@@ -140,5 +140,5 @@ def send_text(message):
     except BaseException:
         return
 
-bot.infinity_polling((1 <<25), (1 << 25))
+bot.infinity_polling((1 <<23), (1 << 23))
 print("palling ended")
