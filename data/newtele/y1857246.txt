@@ -1,6 +1,6 @@
 login: y1857246
 password: 7728
-paid_answers: 150
+paid_answers: 160
 accuracy: 0.98
 informed: False
 clogin: Maximosa

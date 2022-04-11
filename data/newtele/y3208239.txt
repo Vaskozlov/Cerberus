@@ -1,0 +1,9 @@
+login: y3208239
+password: 899478
+paid_answers: 148
+accuracy: 0.98
+informed: False
+clogin: Egor4ert
+cpassword: f07102006
+chat_id: 1706412490
+name: Черпанов Арсений Данилович

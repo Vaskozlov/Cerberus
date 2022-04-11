@@ -1,0 +1,9 @@
+login: y3208220
+password: 471757
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: Lalllipop
+cpassword: Lallipop372882
+chat_id: 1086760239
+name: Вагапов Станислав Денисович

@@ -1,6 +1,6 @@
 login: y3208231
 password: 769685
-paid_answers: 66
+paid_answers: 16
 accuracy: 0.75
 informed: False
 clogin: qwe1234
