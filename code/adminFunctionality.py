@@ -1,6 +1,11 @@
 from globals import *
 
 
+def log_message(message):
+    with open("data/messages.txt", mode="a", encoding="utf-8") as fin:
+        fin.write(message)
+
+
 def public_message(self):
     bot.send_message(self.chat_id, "Введите сообщение, которое хотите отправить всем пользователям")
     self.status = users_statuses.public_message_status
@@ -9,16 +14,14 @@ def public_message(self):
 def send_public_message(self):
     clientController.login_lock.acquire()
 
-    try:
-        for chat_id in clientController.users_from_chat_id.keys():
+    for chat_id in clientController.users_from_chat_id.keys():
+        try:
             bot.send_message(chat_id, self.message.text)
+        except BaseException:
+            pass
 
-    except BaseException:
-        pass
-
-    finally:
-        self.status = users_statuses.main_menu
-        clientController.login_lock.release()
+    self.status = users_statuses.main_menu
+    clientController.login_lock.release()
 
 
 def show_user(self):
@@ -28,6 +31,9 @@ def show_user(self):
     for elem in clientController.users_from_clogin.keys():
         usr = clientController.users_from_clogin[elem]
         data.append(f"{usr.name} - {usr.chat_id}, {usr.cerberusLogin}\n")
+
+    log_message(
+        f"To all, from {self.config.cerberusLogin}, data = {data}\n")
 
     clientController.login_lock.release()
     data.sort()
@@ -45,12 +51,12 @@ def send_private_message(self):
             return
 
         data = info[2]
+
         for elem in info[3:]:
             data += " " + elem
 
-        with open("data/messages.txt", mode="a", encoding="utf-8") as fin:
-            fin.write(
-                f"To {clientController.get_user_from_id(chat_id).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
+        log_message(
+            f"To {clientController.get_user_from_id(chat_id).cerberusLogin}, from {self.config.cerberusLogin}, data = {data}\n")
 
         bot.send_message(chat_id, data)
 

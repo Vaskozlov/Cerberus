@@ -46,7 +46,7 @@ class user:
 
         return True
 
-    def standart_choice(self):
+    def default_choice(self):
         data = self.message.text.lower()
 
         if data == "упражнение":
@@ -174,7 +174,7 @@ class user:
                     bot.send_message(self.chat_id, fin.read())
 
             elif self.status == users_statuses.main_menu:
-                self.standart_choice()
+                self.default_choice()
 
             elif self.status == users_statuses.login_status:
                 bot.send_message(self.chat_id, "Напишите ваш пароль")
@@ -233,7 +233,7 @@ class user:
             elif self.status == users_statuses.public_message_status:
                 send_public_message(self)
 
-            elif self.message != None:
+            elif self.message is not None:
                 first_response(self)
 
         except BaseException as e:
@@ -243,5 +243,5 @@ class user:
             self.lock.release()
 
     def save(self):
-        if self.config != None and self.config.updated == True:
+        if self.config is not None and self.config.updated:
             self.config.save()

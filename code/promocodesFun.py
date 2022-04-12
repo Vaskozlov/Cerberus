@@ -63,7 +63,7 @@ def enter_promocode(self):
             with open("data/initedUsers.txt", mode="a", encoding="utf-8") as fin:
                 fin.write(promocodes[num].creatorLogin + "\n")
 
-        self.config.add_paid_aswers(promocodes[num].words)
+        self.config.add_paid_answers(promocodes[num].words)
 
         if promocodes[num].words2creator > 0:
             thread = th.Thread(target=addPromocode, args=[promocodes[num]])
@@ -87,4 +87,4 @@ def enter_promocode(self):
 
 def addPromocode(promo: promocode):
     usr = clientController.get_user_from_login(promo.creatorLogin)
-    usr.add_paid_aswers(promo.words2creator)
+    usr.add_paid_answers(promo.words2creator)

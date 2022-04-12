@@ -2,18 +2,18 @@ from globals import *
 from cerbrus import *
 
 
-def process_exercise_loading(self):
-    if self.status == users_statuses.world_amount_status:
+def process_exercise_loading(user):
+    if user.status == users_statuses.world_amount_status:
 
-        self.cerberous = Cerberus(
-            user_config=self.config,
-            lvl_text=self.exercise2do, end_number=self.exercise_amount, delay=8
+        user.cerberous = Cerberus(
+            user_config=user.config,
+            lvl_text=user.exercise2do, end_number=user.exercise_amount, delay=8
         )
 
         keyb = telebot.types.ReplyKeyboardMarkup()
 
         try:
-            data = self.cerberous.load_exercise()
+            data = user.cerberous.load_exercise()
 
         except BaseException:
             data = []
@@ -24,64 +24,64 @@ def process_exercise_loading(self):
         keyb.add("Отменить")
         if len(data) > 0:
             info = [f"{elem[0]} прогресс {elem[1]}\n" for elem in data]
-            bot.send_message(self.chat_id,
+            bot.send_message(user.chat_id,
                              f"Выберите активное упражнение из списка. Если вам требуется выполнить неактивное упражнение, то напишите его номер вручную.\n" + "".join(info),
                              reply_markup=keyb)
         else:
-            bot.send_message(self.chat_id, "Нет активных упражнений. Если вам требуется выполнить неактивное упражнение, то напишите его номер вручную", reply_markup=keyb)
+            bot.send_message(user.chat_id, "Нет активных упражнений. Если вам требуется выполнить неактивное упражнение, то напишите его номер вручную", reply_markup=keyb)
 
-        self.cerberous = None
+        user.cerberous = None
 
     else:
-        bot.send_message(self.chat_id, "Начните делать упражнение, чтобы просмотреть список доступных заданий")
+        bot.send_message(user.chat_id, "Начните делать упражнение, чтобы просмотреть список доступных заданий")
 
 
-def worlds_amount_quastion(self):
-    self.exercise2do = self.message.text
-    bot.send_message(self.chat_id, "Сколько слов вы хотите сделать?", reply_markup=empty_keyboard)
-    self.status = users_statuses.start_execution_status
+def worlds_amount_quastion(user):
+    user.exercise2do = user.message.text
+    bot.send_message(user.chat_id, "Сколько слов вы хотите сделать?", reply_markup=empty_keyboard)
+    user.status = users_statuses.start_execution_status
 
 
-def do_exercise(self):
-    self.status = users_statuses.proccessing_exercise_status
+def do_exercise(user):
+    user.status = users_statuses.proccessing_exercise_status
 
-    if self.message.text.isdecimal():
-        self.exercise_amount = int(self.message.text)
+    if user.message.text.isdecimal():
+        user.exercise_amount = int(user.message.text)
 
-        if self.config.paid_answers < self.exercise_amount:
-            bot.send_message(self.chat_id,
-                             f"Вы не можете сделать столько слов, потому что у вас есть всего {self.config.paid_answers} слов",
+        if user.config.paid_answers < user.exercise_amount:
+            bot.send_message(user.chat_id,
+                             f"Вы не можете сделать столько слов, потому что у вас есть всего {user.config.paid_answers} слов",
                              reply_markup=standart_keyboard)
-            self.status = users_statuses.main_menu
+            user.status = users_statuses.main_menu
             return
 
         else:
-            self.callback_message = bot.send_message(self.chat_id, "Упражнение выполняется... Прогресс: 0, ошибок: 0",
+            user.callback_message = bot.send_message(user.chat_id, "Упражнение выполняется... Прогресс: 0, ошибок: 0",
                                                      reply_markup=None)
 
             try:
 
-                self.cerberous = Cerberus(user_config=self.config,
-                                          lvl_text=self.exercise2do, end_number=self.exercise_amount, delay=8)
+                user.cerberous = Cerberus(user_config=user.config,
+                                          lvl_text=user.exercise2do, end_number=user.exercise_amount, delay=8)
 
-                result = self.cerberous.start(callback=self.callback)
+                result = user.cerberous.start(callback=user.callback)
 
-                bot.send_message(self.chat_id,
-                                 f"Упражнение выполнено: {result[0]}/{self.exercise_amount}, ошибок: {result[1]}, у вас есть {self.config.paid_answers} слов",
+                bot.send_message(user.chat_id,
+                                 f"Упражнение выполнено: {result[0]}/{user.exercise_amount}, ошибок: {result[1]}, у вас есть {user.config.paid_answers} слов",
                                  reply_markup=standart_keyboard)
-                self.status = users_statuses.main_menu
-                self.cerberous = None
-                self.callback_message = None
+                user.status = users_statuses.main_menu
+                user.cerberous = None
+                user.callback_message = None
 
-                if self.config.paid_answers <= 0:
-                    bot.send_message(self.chat_id, f"У вас закончились слова. {Message4Consumers}")
+                if user.config.paid_answers <= 0:
+                    bot.send_message(user.chat_id, f"У вас закончились слова. {Message4Consumers}")
 
             except BaseException as e:
                 print(e)
-                bot.send_message(self.chat_id, "Возникла ошибка, убедитесь в правильности номера упражнения",
+                bot.send_message(user.chat_id, "Возникла ошибка, убедитесь в правильности номера упражнения",
                                  reply_markup=standart_keyboard)
-                self.status = users_statuses.main_menu
+                user.status = users_statuses.main_menu
 
     else:
-        bot.send_message(self.chat_id, "Введите только число. Попробуйте еще раз", reply_markup=cancel_keyboard)
-        self.status = users_statuses.start_execution_status
+        bot.send_message(user.chat_id, "Введите только число. Попробуйте еще раз", reply_markup=cancel_keyboard)
+        user.status = users_statuses.start_execution_status

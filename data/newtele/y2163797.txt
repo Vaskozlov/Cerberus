@@ -1,6 +1,6 @@
 login: y2163797
 password: 7931
-paid_answers: 100
+paid_answers: 0
 accuracy: 1.0
 informed: False
 clogin: ladno

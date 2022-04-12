@@ -31,10 +31,10 @@ class users_statuses(enum.Enum):
 
 class promocode:
 
-    def __init__(self, words, words2creator, creatorLogin):
+    def __init__(self, words, words2creator, creator_login):
         self.words = words
         self.words2creator = words2creator
-        self.creatorLogin = creatorLogin
+        self.creatorLogin = creator_login
 
 
 promocodes = dict()

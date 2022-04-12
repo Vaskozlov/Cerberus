@@ -57,16 +57,8 @@ def help_user(message):
 @bot.message_handler(commands=['start'])
 def start_message(message):
     try:
-        chat_id: int = message.chat.id
         working_users_lock.acquire()
-
-        if chat_id in working_users.keys():
-            bot.send_message(chat_id, "Вы уже вошли в систему")
-        else:
-            working_users[chat_id] = user(message)
-            usr = working_users[chat_id]
-            usr.th = th.Thread(target=starter, args=[usr, message])
-            usr.th.start()
+        start_messaging_with_user(message)
 
     except BaseException:
         pass
@@ -75,44 +67,61 @@ def start_message(message):
         working_users_lock.release()
 
 
+def start_messaging_with_user(message):
+    chat_id: int = message.chat.id
+
+    if chat_id in working_users.keys():
+        bot.send_message(chat_id, "Вы уже вошли в систему")
+    else:
+        working_users[chat_id] = user(message)
+        usr = working_users[chat_id]
+        usr.th = th.Thread(target=starter, args=[usr, message])
+        usr.th.start()
+
+
 def stop_user(chat_id: int):
     if chat_id in clientController.users_from_chat_id.keys():
-        clientController.set_chat_id(clientController.users_from_chat_id[chat_id].cerberusLogin, 0)
+        login = clientController.users_from_chat_id[chat_id].cerberusLogin
+        clientController.set_chat_id(login, 0)
 
     working_users_lock.acquire()
 
     if chat_id in working_users.keys():
-        usr = working_users[chat_id]
-        working_users_lock.release()
-
-        if usr.cerberous is not None:
-            usr.cerberous.running = False
-
-        usr.lock.acquire()
-
-        if usr.cerberous is not None:
-            usr.cerberous.running = False
-
-            while usr.cerberous is not None:
-                if usr.status == users_statuses.main_menu:
-                    break
-                else:
-                    time.sleep(0.1)
-
-        usr.lock.release()
-
-        usr.save()
-
-        working_users_lock.acquire()
-
-        if chat_id in working_users.keys():
-            try:
-                del working_users[chat_id]
-            except BaseException:
-                pass
+        stop_active_user(chat_id)
 
     working_users_lock.release()
     bot.send_message(chat_id, "Вы вышли из системы", reply_markup=empty_keyboard)
+
+
+def stop_active_user(chat_id):
+    usr = working_users[chat_id]
+    working_users_lock.release()
+
+    if usr.cerberous is not None:
+        usr.cerberous.running = False
+
+    usr.lock.acquire()
+
+    if usr.cerberous is not None:
+        usr.cerberous.running = False
+
+        while usr.cerberous is not None:
+            if usr.status == users_statuses.main_menu:
+                break
+            else:
+                time.sleep(0.1)
+
+    usr.lock.release()
+
+    usr.save()
+
+    working_users_lock.acquire()
+
+    if chat_id in working_users.keys():
+        try:
+            del working_users[chat_id]
+        except BaseException:
+            pass
 
 
 @bot.message_handler(commands=['stop'])
@@ -140,5 +149,6 @@ def send_text(message):
     except BaseException:
         return
 
-bot.infinity_polling(timeout=10, long_polling_timeout = 5)
+
+bot.infinity_polling(timeout=10, long_polling_timeout=5)
 print("palling ended")

@@ -9,13 +9,13 @@ def add_user(path: TextIOWrapper, user):
 
 
 def remove_accents(input_str: str):
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+    formatted_str = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in formatted_str if not unicodedata.combining(c)])
 
 
 def new_remove_accents(input_str: str):
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    answer = [c for c in nfkd_form if not unicodedata.combining(c)]
+    formatted_str = unicodedata.normalize('NFKD', input_str)
+    answer = [c for c in formatted_str if not unicodedata.combining(c)]
 
     for i in range(min(len(answer), len(input_str))):
 
@@ -162,7 +162,7 @@ class ClientConfig:
             elem[0] = elem[0].strip(" \n")
             elem[1] = elem[1].strip(" \n")
 
-            if (len(elem) != 2):
+            if len(elem) != 2:
                 continue
 
             if elem[0] == 'login':
@@ -196,14 +196,14 @@ class ClientConfig:
 
     def add_answer(self, correct: bool):
 
-        if (correct == False):
+        if not correct:
             self.mistakes += 1
 
         self.answered += 1
-        self.add_paid_aswers(-1)
+        self.add_paid_answers(-1)
         self.updated = True
 
-    def add_paid_aswers(self, answers: int):
+    def add_paid_answers(self, answers: int):
         self.paid_answers += answers
         self.save()
 
@@ -311,7 +311,7 @@ class ClientController:
 
     def __del__(self):
         for elem in self.users_from_clogin.keys():
-            if self.users_from_clogin[elem].updated == True:
+            if self.users_from_clogin[elem].updated:
                 self.users_from_clogin[elem].save()
 
         print("Saving files...")

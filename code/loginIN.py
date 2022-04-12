@@ -1,39 +1,46 @@
 from globals import *
 
 
-def first_response(self):
+def try_to_login(user):
+    if user.chat_id in clientController.users_from_chat_id.keys():
+        user.config = clientController.get_user_from_id(user.chat_id)
+        bot.send_message(user.chat_id,
+                         f"Вы успешно вошли под вашим аккаунтом {user.config.cerberusLogin}, у вас есть {user.config.paid_answers} слов, у вас установлена точность в {int(user.config.accuracy * 100)}%",
+                         reply_markup=standart_keyboard)
+        user.login = user.config.cerberusLogin
+        user.password = user.config.cerberusPassword
+        user.status = users_statuses.main_menu
+        user.logined = True
+
+        if user.config.paid_answers == 0:
+            bot.send_message(user.chat_id, f"У вас закончились слова. {Message4Consumers}")
+
+    else:
+        user.status = users_statuses.login_status
+        bot.send_message(user.chat_id, "Напишите ваш логин от цербера", reply_markup=empty_keyboard)
+
+
+def register(user):
+    user.tmp_login = None
+    user.tmp_password = None
+    user.login = None
+    user.password = None
+    bot.send_message(user.chat_id, "Напишите ваш логин от аккаунта cerm.ru", reply_markup=empty_keyboard)
+    user.status = users_statuses.register_status
+
+
+def first_response(user):
     global clientController, bot
 
-    data = self.message.text.lower()
+    data = user.message.text.lower()
 
     if data == "войти":
-
-        if self.chat_id in clientController.users_from_chat_id.keys():
-            self.config = clientController.get_user_from_id(self.chat_id)
-            bot.send_message(self.chat_id,
-                             f"Вы успешно вошли под вашим аккаунтом {self.config.cerberusLogin}, у вас есть {self.config.paid_answers} слов, у вас установлена точность в {int(self.config.accuracy * 100)}%",
-                             reply_markup=standart_keyboard)
-            self.login = self.config.cerberusLogin
-            self.password = self.config.cerberusPassword
-            self.status = users_statuses.main_menu
-            self.logined = True
-
-            if self.config.paid_answers == 0:
-                bot.send_message(self.chat_id, f"У вас закончились слова. {Message4Consumers}")
-
-        else:
-            self.status = users_statuses.login_status
-            bot.send_message(self.chat_id, "Напишите ваш логин от цербера", reply_markup=empty_keyboard)
+        try_to_login(user)
 
     elif data == "зарегистрироваться":
-        self.tmp_login = None
-        self.tmp_password = None
-        self.login = None
-        self.password = None
-        bot.send_message(self.chat_id, "Напишите ваш логин от аккаунта cerm.ru", reply_markup=empty_keyboard)
-        self.status = users_statuses.register_status
+        register(user)
 
-    self.message = None
+    user.message = None
 
 
 def cerberus_login(self):
