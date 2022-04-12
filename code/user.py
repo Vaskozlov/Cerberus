@@ -147,13 +147,13 @@ class user:
                     bot.send_message(self.chat_id, "Теперь вы больше не админ")
 
             elif lowercase == "пополнить слова" and self.login in working_admins:
-                promocodes_level_1(self)
+                promo_codes_level_1(self)
 
             elif lowercase == "рассылка" and self.login in working_admins:
                 public_message(self)
 
             elif lowercase == "пользователи" and self.login in working_admins:
-                show_user(self)
+                show_users(self)
 
             elif "лично" in lowercase and self.login in working_admins:
                 send_private_message(self)
@@ -210,7 +210,7 @@ class user:
 
                 elif lowercase == "пригласить друга":
                     self.message.text = "100"
-                    promocodes_level_2(self, 200)
+                    promo_codes_level_2(self, 200)
                     self.status = users_statuses.main_menu
                     bot.send_message(self.chat_id,
                                      "Этот промокод должен ввести твой друг, чтобы ты и он получили слова.")
@@ -228,7 +228,7 @@ class user:
                 self.status = users_statuses.wait_status
 
             elif self.status == users_statuses.promocode_creation_status:
-                promocodes_level_2(self, 10)
+                promo_codes_level_2(self, 10)
 
             elif self.status == users_statuses.public_message_status:
                 send_public_message(self)

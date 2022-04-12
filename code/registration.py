@@ -96,7 +96,7 @@ def information_confirmed(user):
     clientController.add_user(user.config)
 
     user.config.save()
-    user.logined = True
+    user.authorized = True
     bot.send_message(user.chat_id,
                      f"Вы успешно вошли под вашим аккаунтом {user.config.cerberusLogin}, у вас есть {user.config.paid_answers} слов, у вас установлена точность в {int(user.config.accuracy * 100)}%",
                      reply_markup=standart_keyboard)

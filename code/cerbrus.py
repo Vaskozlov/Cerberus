@@ -1,4 +1,3 @@
-import sys
 import time
 import random
 import selenium
@@ -303,6 +302,8 @@ class Cerberus:
         self.driver = None
 
     def load_exercise(self) -> list:
+        exercise_information = []
+
         try:
             self.driver.get("https://login.cerm.ru/")
             time.sleep(0.1)
@@ -315,7 +316,6 @@ class Cerberus:
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.TAG_NAME, 'td')))
             opened_exercises = self.driver.find_elements_by_class_name(
                 "exerciseOpen")  # содержит всю инфу про упражнениях
-            exercise_information = []
 
             for j in range(len(opened_exercises)):
 

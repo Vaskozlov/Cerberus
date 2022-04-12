@@ -10,7 +10,7 @@ def try_to_login(user):
         user.login = user.config.cerberusLogin
         user.password = user.config.cerberusPassword
         user.status = users_statuses.main_menu
-        user.logined = True
+        user.authorized = True
 
         if user.config.paid_answers == 0:
             bot.send_message(user.chat_id, f"У вас закончились слова. {Message4Consumers}")
@@ -43,33 +43,35 @@ def first_response(user):
     user.message = None
 
 
-def cerberus_login(self):
-    self.password = self.message.text
+def cerberus_login(user):
+    user.password = user.message.text
 
     try:
-        if self.login in clientController.users_from_clogin.keys() and clientController.get_user_from_login(
-                self.login).cerberusPassword == self.password:
-            usr = clientController.get_user_from_login(self.login)
-
-            if usr.chat_id != self.chat_id and usr.chat_id != 0:
-                bot.send_message(self.chat_id, "Другой телеграмм аккаунт уже работает с этим аккаунтом")
-                del working_users[self.chat_id]
-                return
-
-            else:
-                self.config = clientController.get_user_from_login(self.login)
-                bot.send_message(self.chat_id,
-                                 f"Вы успешно вошли под вашим аккаунтом {self.config.cerberusLogin}, у вас есть {self.config.paid_answers} слов, у вас установлена точность в {int(self.config.accuracy * 100)}%",
-                                 reply_markup=standart_keyboard)
-
-                clientController.set_chat_id(self.login, self.chat_id)
-
-                self.status = users_statuses.main_menu
-                self.logined = True
-
+        if user.login in clientController.users_from_clogin.keys() and clientController.get_user_from_login(
+                user.login).cerberusPassword == user.password:
+            login_into_account(user)
         else:
-            bot.send_message(self.chat_id, "Неверный логин или пароль, попробуйте еще раз")
-            self.status = users_statuses.login_status
+            bot.send_message(user.chat_id, "Неверный логин или пароль, попробуйте еще раз")
+            user.status = users_statuses.login_status
 
     except BaseException:
         pass
+
+
+def login_into_account(user):
+    usr = clientController.get_user_from_login(user.login)
+
+    if usr.chat_id != user.chat_id and usr.chat_id != 0:
+        bot.send_message(user.chat_id, "Другой телеграмм аккаунт уже работает с этим аккаунтом")
+        del working_users[user.chat_id]
+
+    else:
+        user.config = clientController.get_user_from_login(user.login)
+        bot.send_message(user.chat_id,
+                         f"Вы успешно вошли под вашим аккаунтом {user.config.cerberusLogin}, у вас есть {user.config.paid_answers} слов, у вас установлена точность в {int(user.config.accuracy * 100)}%",
+                         reply_markup=standart_keyboard)
+
+        clientController.set_chat_id(user.login, user.chat_id)
+
+        user.status = users_statuses.main_menu
+        user.authorized = True

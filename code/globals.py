@@ -1,8 +1,5 @@
-import os
 import sys
 import enum
-from selenium.webdriver import safari
-from selenium.webdriver.common import keys
 import telebot
 import threading as th
 import database as db
@@ -82,13 +79,20 @@ if gHideBrowsers:
 CermerDatabase: db.DataBase = db.DataBase("data/new_base2.txt")
 Message4Consumers = f"Вы можете приобрести любой пакет слов из перечисленных:\n"
 
-for elem in prices.keys():
-    if isinstance(elem, int):
-        Message4Consumers += f"{elem} cлов за {prices[elem]} ₽\n"
-    else:
-        Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
 
-Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
+def setup_messages():
+    global Message4Consumers
 
-with open ('data/cerberus_help/cerberus_help.txt', mode='r', encoding="utf-8") as fin:
+    for elem in prices.keys():
+        if isinstance(elem, int):
+            Message4Consumers += f"{elem} cлов за {prices[elem]} ₽\n"
+        else:
+            Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
+
+    Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
+
+
+setup_messages()
+
+with open('data/cerberus_help/cerberus_help.txt', mode='r', encoding="utf-8") as fin:
     help_user_text = fin.read()

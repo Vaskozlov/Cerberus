@@ -1,7 +1,7 @@
 login: y1381839
 password: 2932
-paid_answers: 9999999564
-accuracy: 0.96
+paid_answers: 9999999454
+accuracy: 0.97
 informed: False
 clogin: Bulka
 cpassword: TheBULKA5

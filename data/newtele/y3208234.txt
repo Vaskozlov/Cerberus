@@ -1,6 +1,6 @@
 login: y3208234
 password: 558501
-paid_answers: 440
+paid_answers: 340
 accuracy: 1.0
 informed: False
 clogin: Koptr

@@ -2,14 +2,14 @@ from globals import *
 import random
 
 
-def promocodes_level_1(self):
+def promo_codes_level_1(self):
     bot.send_message(self.chat_id, "Сколько слов добавить в промокод?", reply_markup=promocode_keyboard)
 
     self.status = users_statuses.promocode_creation_status
     return
 
 
-def promocodes_level_2(self, number):
+def promo_codes_level_2(self, number):
     global promocodes_lock, promocodes
 
     promocodes_lock.acquire()
@@ -66,7 +66,7 @@ def enter_promocode(self):
         self.config.add_paid_answers(promocodes[num].words)
 
         if promocodes[num].words2creator > 0:
-            thread = th.Thread(target=addPromocode, args=[promocodes[num]])
+            thread = th.Thread(target=add_promo_code, args=[promocodes[num]])
             thread.start()
 
         with open("data/usedPromocods.txt", mode="a", encoding="utf-8") as fin:
@@ -85,6 +85,6 @@ def enter_promocode(self):
         promocodes_lock.release()
 
 
-def addPromocode(promo: promocode):
+def add_promo_code(promo: promocode):
     usr = clientController.get_user_from_login(promo.creatorLogin)
     usr.add_paid_answers(promo.words2creator)
