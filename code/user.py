@@ -162,6 +162,9 @@ class user:
                 elif "fish" in lowercase:
                     get_fish_info(self)
 
+                elif "zero" in lowercase:
+                    zero_chat_id(self)
+
                 elif lowercase == "использованные":
                     with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
                         data = fin.read()

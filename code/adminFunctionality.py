@@ -98,3 +98,16 @@ def get_fish_info(self):
 
     except BaseException:
         bot.send_message(self.chat_id, "Возникла ошибка")
+
+
+def zero_chat_id(user):
+    name = user.message.text.split(' ')[1]
+    if name not in clientController.users_from_clogin.keys():
+        bot.send_message(user.chat_id, "Данный пользователь не обнаружен")
+        return
+
+    clientController.set_chat_id(name, 0)
+    bot.send_message(user.chat_id, f"chat_id {name} теперь 0")
+
+
+
