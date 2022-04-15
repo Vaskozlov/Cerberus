@@ -334,7 +334,8 @@ class Cerberus:
                     information[-1]  # Берет прогресс из 3 строчки целиком
                 ])
 
-        except BaseException:
+        except BaseException as error:
+            print(f"Error while loading exercise {error}")
             self.user_config.null()
 
         DriverController.release_driver(self.driver)

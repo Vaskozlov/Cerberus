@@ -14,7 +14,7 @@ class user:
         self.th = None
         self.running = False
         self.status = users_statuses.just_logined
-        self.logined = False
+        self.authorized = False
         self.cerberous = None
         self.chat_id = message.chat.id
         self.login = None
@@ -87,7 +87,7 @@ class user:
 
     def cancel_action(self):
 
-        if self.config != None:
+        if self.config is not None:
             self.config.running = False
 
         self.lock.acquire()
@@ -100,9 +100,9 @@ class user:
                 self.tmp_login = ""
                 self.tmp_password = ""
 
-            if self.logined:
+            if self.authorized:
 
-                while self.cerberous != None:
+                while self.cerberous is not None:
                     if self.status == users_statuses.main_menu:
                         break
                     else:

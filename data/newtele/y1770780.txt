@@ -1,6 +1,6 @@
 login: y1770780
 password: 4475
-paid_answers: 800
+paid_answers: 648
 accuracy: 0.99
 informed: False
 clogin: nasa1
