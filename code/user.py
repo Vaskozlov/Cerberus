@@ -121,6 +121,11 @@ class user:
         finally:
             self.lock.release()
 
+    def send_message_to_admin(self):
+        chat_id = 664322462  # Maximosa
+        data = ' '.join(self.message.text.split(' ')[1:])
+        bot.send_message(chat_id, data)
+
     def loop(self):
         global bot, user_configs
         self.message.text = self.message.text.strip(" \n")
@@ -174,6 +179,9 @@ class user:
                 elif lowercase == "сообщения":
                     with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
                         bot.send_message(self.chat_id, fin.read())
+
+            if "поддержка" in lowercase:
+                self.send_message_to_admin()
 
             if self.status == users_statuses.main_menu:
                 self.default_choice()
