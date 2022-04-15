@@ -5,5 +5,5 @@ accuracy: 0.97
 informed: False
 clogin: Bulka
 cpassword: TheBULKA5
-chat_id: 1357198734
+chat_id: 0
 name: Григоренко Екатерина Денисовна

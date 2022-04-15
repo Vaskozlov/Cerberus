@@ -121,6 +121,11 @@ class user:
         finally:
             self.lock.release()
 
+    def send_message_to_admin(self):
+        chat_id = 664322462  # Maximosa
+        data = ' '.join(self.message.text.split(' ')[1:])
+        bot.send_message(chat_id, data)
+
     def loop(self):
         global bot, user_configs
         self.message.text = self.message.text.strip(" \n")
@@ -146,34 +151,39 @@ class user:
                     working_admins.remove(self.login)
                     bot.send_message(self.chat_id, "Теперь вы больше не админ")
 
-            elif lowercase == "пополнить слова" and self.login in working_admins:
-                promo_codes_level_1(self)
+            elif self.login in working_admins:
+                if lowercase == "пополнить слова":
+                    promo_codes_level_1(self)
 
-            elif lowercase == "рассылка" and self.login in working_admins:
-                public_message(self)
+                elif lowercase == "рассылка":
+                    public_message(self)
 
-            elif lowercase == "пользователи" and self.login in working_admins:
-                show_users(self)
+                elif lowercase == "пользователи":
+                    show_users(self)
 
-            elif "лично" in lowercase and self.login in working_admins:
-                send_private_message(self)
+                elif "лично" in lowercase:
+                    send_private_message(self)
 
-            elif "fish" in lowercase and self.login in working_admins:
-                get_fish_info(self)
+                elif "fish" in lowercase:
+                    get_fish_info(self)
 
-            elif lowercase == "использованные" and self.login in working_admins:
-                data = ""
+                elif "zero" in lowercase:
+                    zero_chat_id(self)
 
-                with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
-                    data = fin.read()
+                elif lowercase == "использованные":
+                    with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
+                        data = fin.read()
 
-                bot.send_message(self.chat_id, data)
+                    bot.send_message(self.chat_id, data)
 
-            elif lowercase == "сообщения" and self.login in working_admins:
-                with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
-                    bot.send_message(self.chat_id, fin.read())
+                elif lowercase == "сообщения":
+                    with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
+                        bot.send_message(self.chat_id, fin.read())
 
-            elif self.status == users_statuses.main_menu:
+            if "поддержка" in lowercase:
+                self.send_message_to_admin()
+
+            if self.status == users_statuses.main_menu:
                 self.default_choice()
 
             elif self.status == users_statuses.login_status:
