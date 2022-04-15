@@ -180,7 +180,7 @@ class user:
                     with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
                         bot.send_message(self.chat_id, fin.read())
 
-            if "Поддержка" in lowercase or "поддержка" in lowercase:
+            if "поддержка" in lowercase:
                 self.send_message_to_admin()
 
             if self.status == users_statuses.main_menu:
