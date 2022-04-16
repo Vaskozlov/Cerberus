@@ -1,0 +1,9 @@
+login: y3211418
+password: 789177
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: woodsr
+cpassword: Tha8xoo12
+chat_id: 813111189
+name: Козодаев Александр Владиславович

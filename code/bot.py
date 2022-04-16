@@ -73,7 +73,7 @@ def start_messaging_with_user(message):
     if chat_id in working_users.keys():
         bot.send_message(chat_id, "Вы уже вошли в систему")
     else:
-        working_users[chat_id] = user(message)
+        working_users[chat_id] = User(message)
         usr = working_users[chat_id]
         usr.th = th.Thread(target=starter, args=[usr, message])
         usr.th.start()
@@ -97,15 +97,15 @@ def stop_active_user(chat_id):
     usr = working_users[chat_id]
     working_users_lock.release()
 
-    if usr.cerberous is not None:
-        usr.cerberous.running = False
+    if usr.cerberus is not None:
+        usr.cerberus.running = False
 
     usr.lock.acquire()
 
-    if usr.cerberous is not None:
-        usr.cerberous.running = False
+    if usr.cerberus is not None:
+        usr.cerberus.running = False
 
-        while usr.cerberous is not None:
+        while usr.cerberus is not None:
             if usr.status == users_statuses.main_menu:
                 break
             else:

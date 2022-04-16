@@ -29,3 +29,5 @@ To Bulka, from Maximosa, data = Мы отправили Достану сооб�
 To kikilol, from Maximosa, data = Добрый вечер
 To kikilol, from Maximosa, data = держи промокод на 100 слов 96770325
 To all, from Maximosa, data = Despacito!
+To all, from Maximosa, data = Рассылка
+To all, from Maximosa, data = /sotp

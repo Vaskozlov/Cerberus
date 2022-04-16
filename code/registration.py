@@ -56,10 +56,10 @@ def create_new_account(user):
 
     bot.send_message(user.chat_id, "Проверяю твой аккаунт...")
 
-    user.cerberous = Cerberus(user_config=clientController,
+    user.cerberus = Cerberus(user_config=clientController,
                               lvl_text=user.exercise2do, end_number=0, delay=8)
 
-    user.config.name = user.cerberous.check_this_fish(user.tmp_login, user.tmp_password)
+    user.config.name = user.cerberus.check_this_fish(user.tmp_login, user.tmp_password)
 
     if len(user.config.name) == 0:
         os.remove(f"data/newtele/{user.tmp_login}.txt")

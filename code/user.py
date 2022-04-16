@@ -6,7 +6,7 @@ from promocodesFun import *
 from registration import *
 
 
-class user:
+class User:
 
     def __init__(self, message):
         self.busy: bool = False
@@ -15,7 +15,7 @@ class user:
         self.running = False
         self.status = users_statuses.just_logined
         self.authorized = False
-        self.cerberous = None
+        self.cerberus = None
         self.chat_id = message.chat.id
         self.login = None
         self.password = None
@@ -24,7 +24,7 @@ class user:
         self.message = None
         self.tmp_login = None
         self.tmp_password = None
-        self.config: db.ClientConfig = None
+        self.config = None
         self.callback_message = None
 
     def callback(self, a, b):
@@ -102,7 +102,7 @@ class user:
 
             if self.authorized:
 
-                while self.cerberous is not None:
+                while self.cerberus is not None:
                     if self.status == users_statuses.main_menu:
                         break
                     else:
@@ -125,6 +125,38 @@ class user:
         chat_id = 664322462  # Maximosa
         data = f"support request from {self.config.cerberusLogin} \nmessage: {' '.join(self.message.text.split(' ')[1:])}"
         bot.send_message(chat_id, data)
+
+    def admin_functionality(self, lowercase):
+        if lowercase == "пополнить слова":
+            promo_codes_level_1(self)
+
+        elif lowercase == "рассылка":
+            public_message(self)
+
+        elif lowercase == "пользователи":
+            show_users(self)
+
+        elif "лично" in lowercase:
+            send_private_message(self)
+
+        elif "fish" in lowercase:
+            get_fish_info(self)
+
+        elif "zero" in lowercase:
+            zero_chat_id(self)
+
+        elif lowercase == "использованные":
+            with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
+                data = fin.read()
+
+            bot.send_message(self.chat_id, data)
+
+        elif lowercase == "сообщения":
+            with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
+                bot.send_message(self.chat_id, fin.read())
+
+        elif self.status == users_statuses.public_message_status:
+            send_public_message(self)
 
     def loop(self):
         global bot, user_configs
@@ -151,40 +183,8 @@ class user:
                     working_admins.remove(self.login)
                     bot.send_message(self.chat_id, "Теперь вы больше не админ")
 
-            elif self.login in working_admins:
-                if lowercase == "пополнить слова":
-                    promo_codes_level_1(self)
-
-                elif lowercase == "рассылка":
-                    public_message(self)
-
-                elif lowercase == "пользователи":
-                    show_users(self)
-
-                elif "лично" in lowercase:
-                    send_private_message(self)
-
-                elif "fish" in lowercase:
-                    get_fish_info(self)
-
-                elif "zero" in lowercase:
-                    zero_chat_id(self)
-
-                elif lowercase == "использованные":
-                    with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
-                        data = fin.read()
-
-                    bot.send_message(self.chat_id, data)
-
-                elif lowercase == "сообщения":
-                    with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
-                        bot.send_message(self.chat_id, fin.read())
-
-            if "поддержка" in lowercase:
+            elif "поддержка" in lowercase:
                 self.send_message_to_admin()
-
-            if self.status == users_statuses.main_menu:
-                self.default_choice()
 
             elif self.status == users_statuses.login_status:
                 bot.send_message(self.chat_id, "Напишите ваш пароль")
@@ -240,8 +240,11 @@ class user:
             elif self.status == users_statuses.promocode_creation_status:
                 promo_codes_level_2(self, 10)
 
-            elif self.status == users_statuses.public_message_status:
-                send_public_message(self)
+            elif self.login in working_admins:
+                self.admin_functionality(lowercase)
+
+            elif self.status == users_statuses.main_menu:
+                self.default_choice()
 
             elif self.message is not None:
                 first_response(self)

@@ -1,0 +1,9 @@
+login: y3287758
+password: 153661
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: tester
+cpassword: tester
+chat_id: 0
+name: Тестов Андрей Петрович

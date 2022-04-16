@@ -1,0 +1,9 @@
+login: y3287759
+password: 061400
+paid_answers: 100
+accuracy: 0.98
+informed: False
+clogin: tester2
+cpassword: tester2
+chat_id: 0
+name: Тестов Виталий Антонович
