@@ -123,7 +123,7 @@ class user:
 
     def send_message_to_admin(self):
         chat_id = 664322462  # Maximosa
-        data = ' '.join(self.message.text.split(' ')[1:])
+        data = f"support request from {self.config.cerberusLogin} \nmessage: {' '.join(self.message.text.split(' ')[1:])}"
         bot.send_message(chat_id, data)
 
     def loop(self):
