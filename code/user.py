@@ -130,6 +130,7 @@ class user:
         global bot, user_configs
         self.message.text = self.message.text.strip(" \n")
         lowercase = self.message.text.lower()
+        first_word = lowercase.split(' ')[0]
 
         if self.message.text.lower() == "отменить":
             self.cancel_action()
@@ -161,13 +162,13 @@ class user:
                 elif lowercase == "пользователи":
                     show_users(self)
 
-                elif "лично" in lowercase:
+                elif first_word == "лично":
                     send_private_message(self)
 
-                elif "fish" in lowercase:
+                elif first_word == "fish":
                     get_fish_info(self)
 
-                elif "zero" in lowercase:
+                elif first_word == "zero":
                     zero_chat_id(self)
 
                 elif lowercase == "использованные":
@@ -180,7 +181,7 @@ class user:
                     with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
                         bot.send_message(self.chat_id, fin.read())
 
-            if "поддержка" in lowercase:
+            if first_word == "поддержка":
                 self.send_message_to_admin()
 
             if self.status == users_statuses.main_menu:
