@@ -136,13 +136,13 @@ class User:
         elif lowercase == "пользователи":
             show_users(self)
 
-        elif "лично" in lowercase:
+        elif lowercase == "лично":
             send_private_message(self)
 
-        elif "fish" in lowercase:
+        elif lowercase == "fish":
             get_fish_info(self)
 
-        elif "zero" in lowercase:
+        elif lowercase == "zero":
             zero_chat_id(self)
 
         elif lowercase == "использованные":
@@ -183,7 +183,7 @@ class User:
                     working_admins.remove(self.login)
                     bot.send_message(self.chat_id, "Теперь вы больше не админ")
 
-            elif "поддержка" in lowercase:
+            elif lowercase == "поддержка":
                 self.send_message_to_admin()
 
             elif self.status == users_statuses.login_status:
