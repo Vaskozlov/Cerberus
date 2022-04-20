@@ -123,6 +123,7 @@ class user:
         bot.send_message(chat_id, data)
         bot.send_message(self.chat_id, "Сообщение в поддержку отправлено")
 
+
     def loop(self):
         global bot, user_configs
         self.message.text = self.message.text.strip(" \n")
