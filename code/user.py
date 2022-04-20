@@ -37,7 +37,7 @@ class user:
     def check_password(self, data, size):
         global valid
 
-        if (len(data) < size):
+        if len(data) < size:
             return False
 
         for elem in data:

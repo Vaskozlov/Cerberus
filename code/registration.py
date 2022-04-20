@@ -4,7 +4,7 @@ from cerbrus import *
 
 
 def process_cerm_login_for_new_account(user):
-    if user.message.text in clientController.cerm_logins or user.check_password(user.message.text, 6) == False:
+    if user.message.text in clientController.cerm_logins or not user.check_password(user.message.text, 6):
         bot.send_message(user.chat_id, "Данный логин нельзя использовать. Введите логин еще раз.")
 
     else:
@@ -15,21 +15,20 @@ def process_cerm_login_for_new_account(user):
 
 
 def process_cerm_password_for_new_account(user):
-    if user.check_password(user.message.text, 3):
+    if user.check_password(user.message.text, 4):
         user.tmp_password = user.message.text
 
         if user.login is None:
             bot.send_message(user.chat_id, "Придумайте логин для аккаунта цербера")
 
     else:
-        bot.send_message(user.chat_id, "Пароль может содержать только английские буквы и цифры и минимум 4 символы")
+        bot.send_message(user.chat_id, "Пароль может содержать только английские буквы, цифры и минимум 4 символа")
 
 
 def process_login_for_new_account(user):
-    if user.message.text in clientController.users_from_clogin.keys() or user.check_password(user.message.text,
-                                                                                             5) == False:
+    if user.message.text in clientController.users_from_clogin.keys() or not user.check_password(user.message.text, 4):
         bot.send_message(user.chat_id,
-                         "Данный логин нельзя использовать. Также логин должен содержать как минимум 6 символов и состоять из букв и цифр")
+                         "Данный логин нельзя использовать. Также логин должен содержать как минимум 4 символов и состоять из букв и цифр")
     else:
         user.login = user.message.text
 
@@ -38,10 +37,10 @@ def process_login_for_new_account(user):
 
 
 def process_password_for_new_account(user):
-    if user.check_password(user.message.text, 5):
+    if user.check_password(user.message.text, 4):
         user.password = user.message.text
     else:
-        bot.send_message(user.chat_id, "Пароль содержит запрщенные символы или короче 6 символов")
+        bot.send_message(user.chat_id, "Пароль содержит запрещенные символы или короче 4 символов")
 
 
 def create_new_account(user):
@@ -57,7 +56,7 @@ def create_new_account(user):
     bot.send_message(user.chat_id, "Проверяю твой аккаунт...")
 
     user.cerberous = Cerberus(user_config=clientController,
-                              lvl_text=user.exercise2do, end_number=0, delay=8)
+                              lvl_text=user.exercise2do, end_number=0, delay=20)
 
     user.config.name = user.cerberous.check_this_fish(user.tmp_login, user.tmp_password)
 
@@ -66,11 +65,11 @@ def create_new_account(user):
         user.tmp_login = None
         user.tmp_password = None
         bot.send_message(user.chat_id,
-                         "Не получилось войти в твой аккаунт на сайте cerm.ru. Введите логин от церма и пароль еще раз. Введите логин от церма.")
+                         "Не получилось войти в твой аккаунт на сайте cerm.ru. Введите логин от аккаунта cerm.ru и пароль еще раз. Введите логин от аккаунта cerm.ru.")
     else:
         user.config.save()
         bot.send_message(user.chat_id,
-                         f"Проверьте информацию\nВаш логин от церма: {user.tmp_login}\nВаш пароль от церма: {user.tmp_password}\nВаш логин для цербера: {user.login}\nВаш пароль для цербреа: {user.password}\nНапишите да, если все верно и нет, если есть ошибика")
+                         f"Проверьте информацию\nВаш логин от церма: {user.tmp_login}\nВаш пароль от церма: {user.tmp_password}\nВаш логин для цербера: {user.login}\nВаш пароль для цербреа: {user.password}\nНапишите да, если все верно, и нет, если есть ошибка")
         user.status = users_statuses.confirm_status
 
 

@@ -27,7 +27,7 @@ class Cerberus:
         self.running = False
         self.driver: webdriver.Firefox = DriverController.get_driver()
 
-    def check_this_fish(self, login, password):  # возвращает Фамиялия Имя Отчество владельца аккаунта 
+    def check_this_fish(self, login, password):  # возвращает ФИО владельца аккаунта
         try:
             self.driver.get("https://login.cerm.ru/")
             log = self.driver.find_element_by_name("simora_login")
@@ -35,7 +35,7 @@ class Cerberus:
             pas = self.driver.find_element_by_name("simora_pass")
             pas.send_keys(password)
             pas.send_keys(Keys.ENTER)
-            time.sleep(1)
+            WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.CLASS_NAME, 'header_content_label_ufio')))
             info = self.driver.find_element_by_class_name("header_content_label_ufio").text
             return info
 
