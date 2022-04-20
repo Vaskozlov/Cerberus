@@ -125,6 +125,7 @@ class user:
         chat_id = 664322462  # Maximosa
         data = f"support request from {self.config.cerberusLogin} \nmessage: {' '.join(self.message.text.split(' ')[1:])}"
         bot.send_message(chat_id, data)
+        bot.send_message(self.chat_id, "Сообщение в поддержку отправлено")
 
     def loop(self):
         global bot, user_configs
