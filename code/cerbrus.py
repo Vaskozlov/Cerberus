@@ -168,7 +168,9 @@ class Cerberus:
         self.from_login_to_questions()
 
     def start(self, callback=None):
+        print("begin?")
         begin = time.time()
+        print("No")
         question_number = 0
         self.running = True
 
@@ -306,7 +308,6 @@ class Cerberus:
 
         try:
             self.driver.get("https://login.cerm.ru/")
-            time.sleep(0.1)
             self.page_status = 'login'
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.NAME, 'simora_login')))
 

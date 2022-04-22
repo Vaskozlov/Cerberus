@@ -60,12 +60,9 @@ def do_exercise(user):
                                                      reply_markup=None)
 
             try:
-
                 user.cerberous = Cerberus(user_config=user.config,
                                           lvl_text=user.exercise2do, end_number=user.exercise_amount, delay=8)
-
                 result = user.cerberous.start(callback=user.callback)
-
                 bot.send_message(user.chat_id,
                                  f"Упражнение выполнено: {result[0]}/{user.exercise_amount}, ошибок: {result[1]}, у вас есть {user.config.paid_answers} слов",
                                  reply_markup=standart_keyboard)

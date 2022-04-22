@@ -50,9 +50,7 @@ class user:
         data = self.message.text.lower()
 
         if data == "упражнение":
-            bot.send_message(self.chat_id,
-                             "Подождите загрузки активных упражнений.",
-                             reply_markup=empty_keyboard)
+            bot.send_message(self.chat_id, "Подождите загрузки активных упражнений.", reply_markup=empty_keyboard)
             self.status = users_statuses.world_amount_status
             process_exercise_loading(self)
 
@@ -128,12 +126,13 @@ class user:
         bot.send_message(self.chat_id, "Сообщение в поддержку отправлено")
 
     def loop(self):
+        # print(self.status)
         global bot, user_configs
         self.message.text = self.message.text.strip(" \n")
         lowercase = self.message.text.lower()
         first_word = lowercase.split(' ')[0]
 
-        if self.message.text.lower() == "отменить":
+        if lowercase == "отменить":
             self.cancel_action()
             return
 
