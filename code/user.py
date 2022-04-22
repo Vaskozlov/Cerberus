@@ -9,12 +9,11 @@ from registration import *
 class user:
 
     def __init__(self, message):
-        self.busy: bool = False
         self.lock = th.Lock()
         self.th = None
         self.running = False
         self.status = users_statuses.just_logined
-        self.logined = False
+        self.authorized = False
         self.cerberous = None
         self.chat_id = message.chat.id
         self.login = None
@@ -98,7 +97,7 @@ class user:
                 self.tmp_login = ""
                 self.tmp_password = ""
 
-            if self.logined:
+            if self.authorized:
 
                 while self.cerberous != None:
                     if self.status == users_statuses.main_menu:
@@ -126,7 +125,6 @@ class user:
         bot.send_message(self.chat_id, "Сообщение в поддержку отправлено")
 
     def loop(self):
-        # print(self.status)
         global bot, user_configs
         self.message.text = self.message.text.strip(" \n")
         lowercase = self.message.text.lower()
