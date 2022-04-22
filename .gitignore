@@ -2,4 +2,9 @@
 ./autostart
 geckodriver.log
 CerberousStart.log
+<<<<<<< HEAD
 .idea
+=======
+.idea
+/data/
+>>>>>>> 2ff7c62 (user.logined replaced to user.authorized)
