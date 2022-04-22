@@ -168,9 +168,7 @@ class Cerberus:
         self.from_login_to_questions()
 
     def start(self, callback=None):
-        print("begin?")
         begin = time.time()
-        print("No")
         question_number = 0
         self.running = True
 
