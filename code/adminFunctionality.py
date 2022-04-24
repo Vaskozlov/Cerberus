@@ -64,14 +64,11 @@ def sort_by_time(users_from_clogin):
     moment = time.time()
     result_dict = {}
     time_list = []
-    print('sorting...')
     for elem in users_from_clogin.values():
         t = moment - elem.registration_time
         time_list.append(t)
 
     time_list = sorted(time_list)
-    print(time_list)
-    print(len(time_list), len(users_from_clogin.keys()))
 
     for i in range(len(users_from_clogin.keys())):
         for elem in users_from_clogin.keys():
@@ -80,8 +77,6 @@ def sort_by_time(users_from_clogin):
                 result_dict.update({elem: users_from_clogin[elem]})
                 time_list.remove(time_list[0])
                 break
-
-    print(result_dict)
 
     return result_dict
 

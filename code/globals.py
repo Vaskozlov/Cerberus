@@ -3,7 +3,7 @@ import enum
 import telebot
 import threading as th
 import database as db
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 import time
 
 
@@ -75,7 +75,7 @@ ChromeDriverWay = sys.argv[2]
 CermerOptions: Options = Options()
 
 if gHideBrowsers:
-    CermerOptions.headless = True
+    CermerOptions.headless = False
 
 CermerDatabase: db.DataBase = db.DataBase("data/new_base2.txt")
 Message4Consumers = f"Вы можете приобрести любой пакет слов из перечисленных:\n"
