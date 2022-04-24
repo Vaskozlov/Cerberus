@@ -138,6 +138,7 @@ class ClientConfig:
         self.cerberusPassword: str = ""
         self.name: str = ""
         self.chat_id: int = 0
+        self.registration_time: int = 0
         self.path = path
         self.load_config()
         self.updated = False
@@ -161,9 +162,6 @@ class ClientConfig:
             elem = elem.split(":")
             elem[0] = elem[0].strip(" \n")
             elem[1] = elem[1].strip(" \n")
-
-            if len(elem) != 2:
-                continue
 
             if elem[0] == 'login':
                 self.login = elem[1]
@@ -192,6 +190,9 @@ class ClientConfig:
             elif elem[0] == 'name':
                 self.name = elem[1]
 
+            elif elem[0] == 'registration_time':
+                self.registration_time = int(elem[1])
+
         file.close()
 
     def add_answer(self, correct: bool):
@@ -214,7 +215,17 @@ class ClientConfig:
     def save(self):
         file = open(self.path, mode="w", encoding="utf-8")
 
-        data = f"login: {self.login}\npassword: {self.password}\npaid_answers: {self.paid_answers}\naccuracy: {self.accuracy}\ninformed: {self.informed}\nclogin: {self.cerberusLogin}\ncpassword: {self.cerberusPassword}\nchat_id: {self.chat_id}\nname: {self.name}\n"
+        data = f"login: {self.login}\n" \
+               f"password: {self.password}\n" \
+               f"paid_answers: {self.paid_answers}\n" \
+               f"accuracy: {self.accuracy}\n" \
+               f"informed: {self.informed}\n" \
+               f"clogin: {self.cerberusLogin}\n" \
+               f"cpassword: {self.cerberusPassword}\n" \
+               f"chat_id: {self.chat_id}\n" \
+               f"name: {self.name}\n" \
+               f"registration_time: {self.registration_time}\n"
+
         self.updated = False
 
         file.write(data)

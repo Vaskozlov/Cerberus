@@ -30,14 +30,59 @@ def send_public_message(user):
 def show_users(user):
     data = []
     clientController.login_lock.acquire()
+    usrs = clientController.users_from_clogin
 
-    for elem in clientController.users_from_clogin.keys():
-        usr = clientController.users_from_clogin[elem]
+    for elem in usrs.keys():
+        usr = usrs[elem]
         data.append(f"{usr.name} - {usr.chat_id}, {usr.cerberusLogin}\n")
 
     clientController.login_lock.release()
     data.sort()
     bot.send_message(user.chat_id, "".join(data))
+
+
+def show_users_with_time(user):  # logins and time after registration
+    data = []
+    clientController.login_lock.acquire()
+    usrs = sort_by_time(clientController.users_from_clogin)
+
+    for elem in usrs.keys():
+        usr = usrs[elem]
+        t = round((time.time() - usr.registration_time)/3600)
+        if t < 10**4:
+            data.append(f"{usr.cerberusLogin} - around {t} hours ago\n")
+
+    if not data:
+        data = ["Нет новых пользователей"]
+
+    clientController.login_lock.release()
+    bot.send_message(user.chat_id, "".join(data))
+
+
+def sort_by_time(users_from_clogin):
+    moment = time.time()
+    result_dict = {}
+    time_list = []
+    print('sorting...')
+    for elem in users_from_clogin.values():
+        t = moment - elem.registration_time
+        time_list.append(t)
+
+    time_list = sorted(time_list)
+    print(time_list)
+    print(len(time_list), len(users_from_clogin.keys()))
+
+    for i in range(len(users_from_clogin.keys())):
+        for elem in users_from_clogin.keys():
+            if (moment - users_from_clogin[elem].registration_time == time_list[0]) and elem not in result_dict.keys():
+                print(i, elem)
+                result_dict.update({elem: users_from_clogin[elem]})
+                time_list.remove(time_list[0])
+                break
+
+    print(result_dict)
+
+    return result_dict
 
 
 def send_private_message(user):
@@ -93,7 +138,7 @@ def get_fish_info(self):
 
     try:
         usr = clientController.get_user_from_login(info[1])
-        data = f"name: {usr.name}, clogin: {usr.cerberusLogin}, cpassword: {usr.cerberusPassword}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}"
+        data = f"name: {usr.name}, clogin: {usr.cerberusLogin}, cpassword: {usr.cerberusPassword}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}, registration_time: {usr.registration_time}"
         bot.send_message(self.chat_id, data)
 
     except BaseException:

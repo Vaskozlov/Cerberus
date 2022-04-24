@@ -1,4 +1,3 @@
-from globals import *
 from loginIN import *
 from adminFunctionality import *
 from cerberPro import *
@@ -130,7 +129,7 @@ class user:
         lowercase = self.message.text.lower()
         first_word = lowercase.split(' ')[0]
 
-        if lowercase == "отменить":
+        if lowercase == "отменить" or lowercase == "cancel":
             self.cancel_action()
             return
 
@@ -154,13 +153,16 @@ class user:
                 if lowercase == "пополнить слова":
                     promo_codes_level_1(self)
 
-                elif lowercase == "рассылка":
+                elif lowercase == "рассылка" or lowercase == "public":
                     public_message(self)
 
-                elif lowercase == "пользователи":
+                elif lowercase == "пользователи" or lowercase == "users":
                     show_users(self)
 
-                elif first_word == "лично":
+                elif first_word == "новые" or first_word == "new":
+                    show_users_with_time(self)
+
+                elif first_word == "лично" or first_word == "private":
                     send_private_message(self)
 
                 elif first_word == "fish":
@@ -169,17 +171,17 @@ class user:
                 elif first_word == "zero":
                     zero_chat_id(self)
 
-                elif lowercase == "использованные":
+                elif lowercase == "использованные" or lowercase == "used":
                     with open("data/usedPromocods.txt", mode="r", encoding="utf-8") as fin:
                         data = fin.read()
 
                     bot.send_message(self.chat_id, data)
 
-                elif lowercase == "сообщения":
+                elif lowercase == "сообщения" or lowercase == "messages":
                     with open("data/messages.txt", mode="r", encoding="utf-8") as fin:
                         bot.send_message(self.chat_id, fin.read())
 
-            if first_word == "поддержка":
+            if first_word == "поддержка" or first_word == "support":
                 self.send_message_to_admin()
 
             if self.status == users_statuses.main_menu:

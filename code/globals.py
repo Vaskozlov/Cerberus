@@ -4,6 +4,7 @@ import telebot
 import threading as th
 import database as db
 from selenium.webdriver.firefox.options import Options
+import time
 
 
 class users_statuses(enum.Enum):
