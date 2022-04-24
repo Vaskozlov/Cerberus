@@ -73,7 +73,6 @@ def sort_by_time(users_from_clogin):
     for i in range(len(users_from_clogin.keys())):
         for elem in users_from_clogin.keys():
             if (moment - users_from_clogin[elem].registration_time == time_list[0]) and elem not in result_dict.keys():
-                print(i, elem)
                 result_dict.update({elem: users_from_clogin[elem]})
                 time_list.remove(time_list[0])
                 break
