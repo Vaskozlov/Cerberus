@@ -38,6 +38,7 @@ def show_users(user):
 
     clientController.login_lock.release()
     data.sort()
+    data.append(f"\n{len(data)} users\n")
     bot.send_message(user.chat_id, "".join(data))
 
 

@@ -50,7 +50,7 @@ def create_new_account(user):
     user.config.cerberusLogin = user.login
     user.config.cerberusPassword = user.password
     user.config.chat_id = user.chat_id
-    user.config.registration_time = time.time()
+    user.config.registration_time = round(time.time())
     user.config.save()
 
     bot.send_message(user.chat_id, "Проверяю твой аккаунт...")
