@@ -18,7 +18,7 @@ class driver_controller:
 
         if sys.platform == "linux" or sys.platform == "darwin":
             server_log_path = "/dev/null"
-            self.drivers.append(webdriver.Firefox(executable_path=ChromeDriverWay,
+            self.drivers.append(webdriver.Chrome(executable_path=ChromeDriverWay,
                                                   options=CermerOptions, service_log_path=server_log_path))
         else:
             self.drivers.append(webdriver.Chrome(executable_path=ChromeDriverWay,

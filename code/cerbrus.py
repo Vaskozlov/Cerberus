@@ -25,7 +25,7 @@ class Cerberus:
         self.delay = delay
         self.right = False
         self.running = False
-        self.driver: webdriver.Firefox = DriverController.get_driver()
+        self.driver: webdriver.Chrome = DriverController.get_driver()
 
     def check_this_fish(self, login, password):  # возвращает ФИО владельца аккаунта
         try:
