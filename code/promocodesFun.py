@@ -70,7 +70,7 @@ def enter_promocode(self):
             thread.start()
 
         with open("data/usedPromocods.txt", mode="a", encoding="utf-8") as fin:
-            fin.write(f"{self.login} {promocodes[num].words}\n")
+            fin.write(f"{self.login} {promocodes[num].words} from {promocodes[num].creatorLogin}\n")
 
         del promocodes[num]
         promocodes_lock.release()
