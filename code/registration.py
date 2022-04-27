@@ -3,7 +3,7 @@ from cerbrus import *
 
 
 def process_cerm_login_for_new_account(user):
-    if user.message.text in clientController.cerm_logins or not user.check_password(user.message.text, 6):
+    if user.message.text.lower() in clientController.cerm_logins or not user.check_password(user.message.text, 6):
         bot.send_message(user.chat_id, "Данный логин нельзя использовать. Введите логин еще раз.")
 
     else:
