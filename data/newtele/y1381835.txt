@@ -1,9 +1,0 @@
-login: y1381835
-password: 9736
-paid_answers: 0
-accuracy: 0.99
-informed: False
-clogin: 92947
-cpassword: 948284
-chat_id: 875818677
-name: Вериго Ева Олеговна

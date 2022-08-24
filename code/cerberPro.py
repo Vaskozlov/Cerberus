@@ -5,7 +5,7 @@ from cerbrus import *
 def process_exercise_loading(user):
     if user.status == users_statuses.world_amount_status:
 
-        user.cerberous = Cerberus(
+        user.cerberus = Cerberus(
             user_config=user.config,
             lvl_text=user.exercise2do, end_number=user.exercise_amount, delay=8
         )
@@ -13,7 +13,7 @@ def process_exercise_loading(user):
         keyb = telebot.types.ReplyKeyboardMarkup()
 
         try:
-            data = user.cerberous.load_exercise()
+            data = user.cerberus.load_exercise()
 
         except BaseException:
             data = []
@@ -30,7 +30,7 @@ def process_exercise_loading(user):
         else:
             bot.send_message(user.chat_id, "Нет активных упражнений. Если вам требуется выполнить неактивное упражнение, то напишите его номер вручную", reply_markup=keyb)
 
-        user.cerberous = None
+        user.cerberus = None
 
     else:
         bot.send_message(user.chat_id, "Начните делать упражнение, чтобы просмотреть список доступных заданий")
@@ -60,14 +60,14 @@ def do_exercise(user):
                                                      reply_markup=None)
 
             try:
-                user.cerberous = Cerberus(user_config=user.config,
+                user.cerberus = Cerberus(user_config=user.config,
                                           lvl_text=user.exercise2do, end_number=user.exercise_amount, delay=8)
-                result = user.cerberous.start(callback=user.callback)
+                result = user.cerberus.start(callback=user.callback)
                 bot.send_message(user.chat_id,
                                  f"Упражнение выполнено: {result[0]}/{user.exercise_amount}, ошибок: {result[1]}, у вас есть {user.config.paid_answers} слов",
                                  reply_markup=standart_keyboard)
                 user.status = users_statuses.main_menu
-                user.cerberous = None
+                user.cerberus = None
                 user.callback_message = None
 
                 if user.config.paid_answers <= 0:

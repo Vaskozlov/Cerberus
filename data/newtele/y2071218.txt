@@ -1,9 +1,0 @@
-login: y2071218
-password: 9520
-paid_answers: 100
-accuracy: 0.98
-informed: False
-clogin: sorrrykess
-cpassword: 5036698
-chat_id: 1339319108
-name: Андреева Виктория Владиславовна

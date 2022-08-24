@@ -1,7 +1,7 @@
 *.pyc
 ./autostart
 geckodriver.log
-CerberousStart.log
+cerberusStart.log
 <<<<<<< HEAD
 .idea
 =======

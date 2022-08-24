@@ -75,7 +75,7 @@ ChromeDriverWay = sys.argv[2]
 CermerOptions: Options = Options()
 
 if gHideBrowsers:
-    CermerOptions.headless = True
+    CermerOptions.headless = False
 
 CermerDatabase: db.DataBase = db.DataBase("data/new_base2.txt")
 Message4Consumers = f"Вы можете приобрести любой пакет слов из перечисленных:\n"

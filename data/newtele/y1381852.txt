@@ -1,9 +1,0 @@
-login: y1381852
-password: 2447
-paid_answers: 0
-accuracy: 1.0
-informed: False
-clogin: shypu4ka
-cpassword: 145678
-chat_id: 833316844
-name: Рассказов Сергей Евгеньевич

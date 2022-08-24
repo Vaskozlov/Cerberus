@@ -10,12 +10,12 @@
 
 int main(int argc, char *argv[])
 {
-    FILE* fd = fopen(PATH2LOGS"CerberousStart.log", "w");
+    FILE* fd = fopen(PATH2LOGS"CerberusStart.log", "w");
     fprintf(fd, "Autostart pid: %d\n", getpid());
     fclose(fd);
     
     chdir(AUTO_CERM_FOLDER);
-    system("unbuffer python3.9 Cerberus/bot.py &> "PATH2LOGS"Cerberous.log &");
+    system("unbuffer python3.9 Cerberus/bot.py &> "PATH2LOGS"cerberus.log &");
     
     return EXIT_SUCCESS;
 }

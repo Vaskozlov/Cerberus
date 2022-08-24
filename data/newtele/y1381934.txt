@@ -1,9 +1,0 @@
-login: y1381934
-password: 2189
-paid_answers: 0
-accuracy: 0.98
-informed: False
-clogin: bebra228
-cpassword: 1309bebra
-chat_id: 1149020729
-name: Старостина Евгения Олеговна

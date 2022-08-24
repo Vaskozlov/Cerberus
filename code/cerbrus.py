@@ -30,13 +30,13 @@ class Cerberus:
     def check_this_fish(self, login, password):  # возвращает ФИО владельца аккаунта
         try:
             self.driver.get("https://login.cerm.ru/")
-            log = self.driver.find_element_by_name("simora_login")
+            log = self.driver.find_element(value="simora_login", by=By.NAME)
             log.send_keys(login)
-            pas = self.driver.find_element_by_name("simora_pass")
+            pas = self.driver.find_element(value="simora_pass", by=By.NAME)
             pas.send_keys(password)
             pas.send_keys(Keys.ENTER)
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.CLASS_NAME, 'header_content_label_ufio')))
-            info = self.driver.find_element_by_class_name("header_content_label_ufio").text
+            info = self.driver.find_element(value="header_content_label_ufio", by=By.CLASS_NAME).text
             return info
 
         except BaseException:
@@ -55,7 +55,7 @@ class Cerberus:
         return False
 
     def correct_mistake(self):
-        elem = self.driver.find_element_by_id("trainer_rno_right")
+        elem = self.driver.find_element(value="trainer_rno_right", by=By.ID)
         correct_string = db.new_remove_accents(elem.text)
 
         self.correct = correct_string
@@ -64,7 +64,7 @@ class Cerberus:
         for _ in range(3):
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.ID, "prno")))
             time.sleep(1.1)
-            rno_string = self.driver.find_element_by_id("prno")
+            rno_string = self.driver.find_element(value="prno", by=By.ID)
             self.page_status = 'rno'
             rno_string.send_keys(correct_string)
 
@@ -81,12 +81,12 @@ class Cerberus:
         WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.TAG_NAME, 'td')))
         self.page_status = 'before_lvl'
 
-        elem = self.driver.find_element_by_tag_name("button")
+        elem = self.driver.find_element(value="button", by=By.TAG_NAME)
 
         if elem.location['x'] != 0:
             elem.click()
 
-        tolvl = self.driver.find_elements_by_tag_name("td")
+        tolvl = self.driver.find_elements(value="td", by=By.TAG_NAME)
 
         if self.lvl_text.isdecimal():
             number = int(self.lvl_text)
@@ -107,34 +107,34 @@ class Cerberus:
 
         time.sleep(0.5)
 
-        button = self.driver.find_element_by_class_name("btn_yellow")
+        button = self.driver.find_element(value="btn_yellow", by=By.CLASS_NAME)
 
         if button.text == "Поехали":
             self.page_status = 'bad_yellow_button'
             button.click()
             time.sleep(0.5)
 
-        elem = self.driver.find_elements_by_id("trainer_rno_right");
+        elem = self.driver.find_elements(value="trainer_rno_right", by=By.ID)
 
         if len(elem) > 0:
             self.correct_mistake()
             time.sleep(0.2)
 
-        complete_button = self.driver.find_elements_by_class_name("button btn_yellow")
+        complete_buttons = self.driver.find_elements(value="button btn_yellow", by=By.CLASS_NAME)
 
-        if len(complete_button) != 0:
+        if len(complete_buttons) != 0:
             self.page_status = 'lvl_complete_button'
-            complete_button.click()
+            complete_buttons[0].click()
 
         time.sleep(1)
         self.page_status = 'lvl'
 
     def login(self):
-        name_input = self.driver.find_element_by_name("simora_login")
-        password_input = self.driver.find_element_by_name("simora_pass")
+        name_input = self.driver.find_element(value="simora_login", by=By.NAME)
+        password_input = self.driver.find_element(value="simora_pass", by=By.NAME)
         name_input.send_keys(self.user_config.login)
         password_input.send_keys(self.user_config.password)
-        self.driver.find_element_by_name('login_button').click()
+        self.driver.find_element(value='login_button', by=By.NAME).click()
 
     def logout(self):
         out_from_question = WebDriverWait(self.driver, self.delay).until(
@@ -175,7 +175,7 @@ class Cerberus:
         self.try_login()
 
         while question_number < self.end_number and self.running:
-            if question_number & 15 == 0:
+            if question_number % 100 == 0:
                 status = "Page status: %s" % self.page_status
                 print(question_number, status, self.statistics, sep='; ')
 
@@ -196,7 +196,7 @@ class Cerberus:
 
             WebDriverWait(self.driver, self.delay).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'trainer_variant')))
-            variants = self.driver.find_elements_by_class_name("trainer_variant")
+            variants = self.driver.find_elements(value="trainer_variant", by=By.CLASS_NAME)
 
             button1 = variants[0]
             button2 = variants[1]
@@ -313,8 +313,7 @@ class Cerberus:
             self.driver.get("https://login.cerm.ru/_user/user_app.php?mod=pwg")
 
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.TAG_NAME, 'td')))
-            opened_exercises = self.driver.find_elements_by_class_name(
-                "exerciseOpen")  # содержит всю инфу про упражнениях
+            opened_exercises = self.driver.find_elements(value="exerciseOpen", by=By.CLASS_NAME)  # содержит всю инфу про упражнениях
 
             for j in range(len(opened_exercises)):
 

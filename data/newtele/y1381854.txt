@@ -1,9 +1,0 @@
-login: y1381854
-password: 5782
-paid_answers: 0
-accuracy: 0.98
-informed: False
-clogin: Zlatitze
-cpassword: Zlatitze
-chat_id: 1342373746
-name: Уринцева Злата Игоревна

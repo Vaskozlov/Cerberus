@@ -4,7 +4,7 @@ from user import *
 from globals import CermerOptions
 from cerbrus import Cerberus
 
-with open("CerberousStart.log", mode="a", encoding="utf-8") as fin:
+with open("cerberusStart.log", mode="a", encoding="utf-8") as fin:
     fin.write("Bot pid: " + str(os.getpid()) + "\n")
 
 print("Bot pid: " + str(os.getpid()) + "\n")
@@ -97,15 +97,15 @@ def stop_active_user(chat_id):
     usr = working_users[chat_id]
     working_users_lock.release()
 
-    if usr.cerberous is not None:
-        usr.cerberous.running = False
+    if usr.cerberus is not None:
+        usr.cerberus.running = False
 
     usr.lock.acquire()
 
-    if usr.cerberous is not None:
-        usr.cerberous.running = False
+    if usr.cerberus is not None:
+        usr.cerberus.running = False
 
-        while usr.cerberous is not None:
+        while usr.cerberus is not None:
             if usr.status == users_statuses.main_menu:
                 break
             else:

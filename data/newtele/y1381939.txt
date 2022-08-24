@@ -1,9 +1,0 @@
-login: y1381939
-password: 4863
-paid_answers: 0
-accuracy: 0.98
-informed: False
-clogin: kikavislaya
-cpassword: 188ryj
-chat_id: 755178288
-name: Цыганкова Виктория Сергеевна

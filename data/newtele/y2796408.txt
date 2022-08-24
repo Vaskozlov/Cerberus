@@ -1,9 +1,0 @@
-login: y2796408
-password: 003836
-paid_answers: 0
-accuracy: 0.99
-informed: False
-clogin: dostan
-cpassword: dosTAN09022007
-chat_id: 933990117
-name: Кадралеев Достан Абаевич

@@ -1,9 +1,0 @@
-login: Y1381857
-password: 4283
-paid_answers: 0
-accuracy: 1.0
-informed: False
-clogin: Vottak
-cpassword: Vottak
-chat_id: 0
-name: Штоль Дмитрий Вадимович

@@ -1,9 +1,0 @@
-login: y3208230
-password: 812532
-paid_answers: 275
-accuracy: 0.98
-informed: False
-clogin: 890123
-cpassword: 45678
-chat_id: 1985925693
-name: Мурзина Ярослава Викторовна

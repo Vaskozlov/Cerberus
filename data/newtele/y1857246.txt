@@ -1,9 +1,10 @@
 login: y1857246
 password: 7728
-paid_answers: 160
+paid_answers: 170
 accuracy: 1.0
 informed: False
 clogin: Maximosa
 cpassword: Maxim
 chat_id: 664322462
 name: Григоренко Максим Денисович
+registration_time: 0

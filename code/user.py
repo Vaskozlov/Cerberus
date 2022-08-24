@@ -13,7 +13,7 @@ class user:
         self.running = False
         self.status = users_statuses.just_logined
         self.authorized = False
-        self.cerberous = None
+        self.cerberus = None
         self.chat_id = message.chat.id
         self.login = None
         self.password = None
@@ -98,7 +98,7 @@ class user:
 
             if self.authorized:
 
-                while self.cerberous != None:
+                while self.cerberus != None:
                     if self.status == users_statuses.main_menu:
                         break
                     else:
