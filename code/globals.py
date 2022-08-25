@@ -44,17 +44,16 @@ all_users = set()
 100 - 50₽
 350 - 170₽
 500 - 200₽
-1200 - 400₽
-Безлимит - 1000₽
+Безлимит - 500₽
 """
 
 working_admins = set()
-prices = {100: 50, 350: 170, 500: 200, "безлимит": 1000}
+prices = {100: 50, 300: 100, 1000: 200, "безлимит": 300}
 
 gHideBrowsers = True
 admins = {"vaskozlov", "Maximosa", "QWERTY", "Bulka"}
 publicAdmins = "https://t.me/confidencess"
-cardNumbers = "5469 7200 1557 6693"
+cardNumbers = "5469 7200 1557 6693"  # cardNumbers = "5469 7200 1557 6693" - vaskozlov
 
 CermerDatabase = db.DataBase("data/new_base2.txt")
 working_users_lock = th.Lock()
@@ -75,10 +74,10 @@ ChromeDriverWay = sys.argv[2]
 CermerOptions: Options = Options()
 
 if gHideBrowsers:
-    CermerOptions.headless = False
+    CermerOptions.headless = True
 
 CermerDatabase: db.DataBase = db.DataBase("data/new_base2.txt")
-Message4Consumers = f"Вы можете приобрести любой пакет слов из перечисленных:\n"
+Message4Consumers = f"Вы можете однократно приобрести промокод на 300 слов за 1₽\nВы можете приобрести любой пакет слов из перечисленных:\n"
 
 
 def setup_messages():
@@ -90,7 +89,7 @@ def setup_messages():
         else:
             Message4Consumers += f"{elem} за {prices[elem]} ₽\n"
 
-    Message4Consumers += f"Для покупки переведите деньги по этому номеру карты {cardNumbers}, а после напишите админу {publicAdmins}"
+    Message4Consumers += f"Для покупки напишите админу {publicAdmins}, а после его ответа (админ может быть какое-то время оффлайн) переведите деньги на карту с номером {cardNumbers}"
 
 
 setup_messages()
