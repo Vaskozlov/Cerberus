@@ -140,7 +140,9 @@ class ClientConfig:
         self.chat_id: int = 0
         self.registration_time: int = 0
         self.path = path
+
         self.load_config()
+
         self.updated = False
         self.running = False
 
@@ -158,8 +160,8 @@ class ClientConfig:
 
         info = file.readlines()
 
-        for elem in info:
-            elem = elem.split(":")
+        for elems in info:
+            elem = elems.split(":")
             elem[0] = elem[0].strip(" \n")
             elem[1] = elem[1].strip(" \n")
 
