@@ -149,6 +149,9 @@ class user:
                     working_admins.remove(self.login)
                     bot.send_message(self.chat_id, "Теперь вы больше не админ")
 
+            if self.status == users_statuses.public_message_status:
+                send_public_message(self)
+
             elif self.login in working_admins:
                 if lowercase == "пополнить слова":
                     promo_codes_level_1(self)
@@ -240,9 +243,6 @@ class user:
 
             elif self.status == users_statuses.promocode_creation_status:
                 promo_codes_level_2(self, 10)
-
-            elif self.status == users_statuses.public_message_status:
-                send_public_message(self)
 
             elif self.message is not None:
                 first_response(self)

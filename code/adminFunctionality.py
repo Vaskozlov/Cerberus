@@ -51,7 +51,7 @@ def show_users_with_time(user):  # logins and time after registration
         usr = usrs[elem]
         t = round((time.time() - usr.registration_time)/3600)
         if t < 10**4:
-            data.append(f"{usr.cerberusLogin} - around {t} hours ago\n")
+            data.append(f"{usr.cerberusLogin}, {' '.join(usr.name.split(' ')[:-1])} - around {t} hours ago\n")
 
     if not data:
         data = ["Нет новых пользователей"]
@@ -135,7 +135,7 @@ def get_fish_info(self):
 
     try:
         usr = clientController.get_user_from_login(info[1])
-        data = f"name: {usr.name}, clogin: {usr.cerberusLogin}, cpassword: {usr.cerberusPassword}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}, registration_time: {usr.registration_time}"
+        data = f"name: {usr.name}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}, registration_time: {usr.registration_time}"
         bot.send_message(self.chat_id, data)
 
     except BaseException:
