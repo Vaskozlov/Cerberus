@@ -135,7 +135,12 @@ def get_fish_info(self):
 
     try:
         usr = clientController.get_user_from_login(info[1])
-        data = f"name: {usr.name}, login: {usr.login}, password: {usr.password}, paid_answers: {usr.paid_answers}, registration_time: {usr.registration_time}"
+        if usr.clogin == usr.login and usr.cpassword == usr.password:
+            data_plus = ''
+        else:
+            data_plus = f'clogin: {usr.clogin}, cpassword: {usr.cpassword}'
+            
+        data = f"name: {usr.name}, login: {usr.login}, {data_plus}password: {usr.password}, paid_answers: {usr.paid_answers}, registration_time: {usr.registration_time}"
         bot.send_message(self.chat_id, data)
 
     except BaseException:
