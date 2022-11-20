@@ -1,5 +1,5 @@
 from globals import *
-from cerbrus import *
+from cerberus import *
 
 
 def process_exercise_loading(user):
@@ -77,8 +77,7 @@ def do_exercise(user):
                 print(e)
                 bot.send_message(user.chat_id, "Возникла ошибка, убедитесь в правильности номера упражнения",
                                  reply_markup=standart_keyboard)
-                user.status = users_statuses.main_menu
-
+                user.status = users_statuses.main_men
     else:
         bot.send_message(user.chat_id, "Введите только число. Попробуйте еще раз", reply_markup=cancel_keyboard)
         user.status = users_statuses.start_execution_status

@@ -2,7 +2,7 @@ import os
 import time
 from user import *
 from globals import CermerOptions
-from cerbrus import Cerberus
+from cerberus import Cerberus
 
 with open("cerberusStart.log", mode="a", encoding="utf-8") as fin:
     fin.write("Bot pid: " + str(os.getpid()) + "\n")

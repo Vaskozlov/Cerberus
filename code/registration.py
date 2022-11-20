@@ -1,5 +1,5 @@
 import os
-from cerbrus import *
+from cerberus import *
 
 
 def process_cerm_login_for_new_account(user):

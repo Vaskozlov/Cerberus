@@ -35,7 +35,8 @@ class Cerberus:
             pas = self.driver.find_element(value="simora_pass", by=By.NAME)
             pas.send_keys(password)
             pas.send_keys(Keys.ENTER)
-            WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.CLASS_NAME, 'header_content_label_ufio')))
+            WebDriverWait(self.driver, self.delay).until(
+                EC.presence_of_element_located((By.CLASS_NAME, 'header_content_label_ufio')))
             info = self.driver.find_element(value="header_content_label_ufio", by=By.CLASS_NAME).text
             return info
 
@@ -181,6 +182,8 @@ class Cerberus:
 
             self.right = True
 
+            print('trying to take question')
+
             question = WebDriverWait(self.driver, self.delay).until(
                 EC.presence_of_element_located((By.ID, "trainer_question")))
 
@@ -189,6 +192,7 @@ class Cerberus:
             all_text: str = question.text
             first_text = ''
 
+            print(f'{all_text=}')
             for i in range(len(all_text) + 1):
                 first_text: str = all_text[:i]
                 if first_text + second_text == all_text:
@@ -313,7 +317,7 @@ class Cerberus:
             self.driver.get("https://login.cerm.ru/_user/user_app.php?mod=pwg")
 
             WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located((By.TAG_NAME, 'td')))
-            opened_exercises = self.driver.find_elements(value="exerciseOpen", by=By.CLASS_NAME)  # содержит всю инфу про упражнениях
+            opened_exercises = self.driver.find_elements(value="exerciseOpen", by=By.CLASS_NAME)
 
             for j in range(len(opened_exercises)):
 
